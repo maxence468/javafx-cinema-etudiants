@@ -14,11 +14,12 @@ public class AccueilController extends MenuController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        String nameUti = Navigation.getParam("nameUti");
+        bienvenue.setText("BONJOUR " + nameUti.toUpperCase());
     }
 
     public void setBienvenue() {
-        bienvenue.setText("BONJOUR " + nameUti.toUpperCase());
+        //bienvenue.setText("BONJOUR " + nameUti.toUpperCase());
     }
 
 }

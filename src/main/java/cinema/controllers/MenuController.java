@@ -9,6 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import cinema.controllers.Navigation;
+import javafx.stage.Window;
 
 public class MenuController {
 
@@ -26,8 +28,8 @@ public class MenuController {
 
     @FXML
     public void bAccueilClick(ActionEvent event) {
-        Stage StageE = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
-        StageE.close();
+        Window window = ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
+        Navigation.goTo("/cinema/views/page_accueil.fxml",  window);
 
     }
 

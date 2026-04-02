@@ -57,6 +57,7 @@ public class Navigation {
             Stage newStage = new Stage();
             newStage.setScene(new Scene(root));
             newStage.setResizable(false);
+            newStage.setTitle(getTitre(fxmlPath));
 
             // ✅ Ajouter l’icône à la nouvelle fenêtre
             newStage.getIcons()
@@ -100,4 +101,20 @@ public class Navigation {
     public static void clearParams() {
         params.clear();
     }
+
+    // Méthode qui associe un titre à chaque page
+    private static String getTitre(String fxmlPath) {
+        switch (fxmlPath) {
+            case "/cinema/views/page_accueil.fxml":         return "Accueil Gestion de franchises";
+            case "/cinema/views/page_connexion.fxml":       return "Connexion";
+            case "/cinema/views/page_liste_franchise.fxml": return "Liste des franchises";
+            case "/cinema/views/page_ajout_franchise.fxml": return "Ajouter une franchise";
+            case "/cinema/views/page_modif_franchise.fxml": return "Modifier une franchise";
+            case "/cinema/views/page_liste_cinema.fxml":    return "Liste des cinémas";
+            case "/cinema/views/page_ajout_cinema.fxml":    return "Ajouter un cinéma";
+            case "/cinema/views/page_liste_salle.fxml":     return "Liste des salles";
+            case "/cinema/views/page_ajout_salle.fxml":     return "Ajouter une salle";
+            default: return "Gestion de franchises";
+    }
+}
 }
