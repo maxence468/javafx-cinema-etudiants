@@ -91,7 +91,7 @@ public class CinemaDAO extends DAO<Cinema> {
     @Override
     public List<Cinema> findAll() {
         List<Cinema> cinemas = new ArrayList<Cinema>();
-        String query = "SELECT * FROM cinema;";
+        String query = "SELECT * FROM cinema c inner join franchise f on c.id_franchise = f.id_franchise;";
 
         try (PreparedStatement preparedStatement = this.connect.prepareStatement(query);
                 ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -103,6 +103,9 @@ public class CinemaDAO extends DAO<Cinema> {
                         resultSet.getString("adresse"),
                         resultSet.getString("ville"),
                         resultSet.getInt("id_franchise"));
+                        
+                        cinema.setNomFranchise(resultSet.getString("nom_franchise"));
+
                 cinemas.add(cinema);
             }
         } catch (SQLException e) {

@@ -99,28 +99,31 @@ public class MenuController {
 
     @FXML
     public void bListeCinemaClick(ActionEvent event) {
-        Stage stageP = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
-        stageP.close();
-        try {
+        Window window = ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
+        Navigation.goTo("/cinema/views/page_liste_cinema.fxml", window);
 
-            FXMLLoader fxmlLoader = new FXMLLoader(
-                    getClass().getResource("/cinema/views/page_liste_cinemaa.fxml"));
-            Parent root = fxmlLoader.load();
+        // Stage stageP = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
+        // stageP.close();
+        // try {
 
-            ListeCinemaController listeSectionController = fxmlLoader.getController();
-            listeSectionController.setName(nameUti);
+        //     FXMLLoader fxmlLoader = new FXMLLoader(
+        //             getClass().getResource("/cinema/views/page_liste_cinemaa.fxml"));
+        //     Parent root = fxmlLoader.load();
 
-            Stage stage = new Stage();
-            stage.setTitle("Liste cinéma");
-            stage.setScene(new Scene(root));
+        //     ListeCinemaController listeSectionController = fxmlLoader.getController();
+        //     listeSectionController.setName(nameUti);
 
-            stage.initModality(Modality.APPLICATION_MODAL);
+        //     Stage stage = new Stage();
+        //     stage.setTitle("Liste cinéma");
+        //     stage.setScene(new Scene(root));
 
-            stage.show();
+        //     stage.initModality(Modality.APPLICATION_MODAL);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        //     stage.show();
+
+        // } catch (Exception e) {
+        //     e.printStackTrace();
+        // }
     }
 
     @FXML

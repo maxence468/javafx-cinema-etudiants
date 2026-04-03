@@ -1,10 +1,13 @@
 package cinema.controllers;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import cinema.BO.Cinema;
+import cinema.BO.Franchise;
 import cinema.DAO.CinemaDAO;
+import cinema.DAO.FranchiseDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,109 +18,150 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ListView;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class ModifierCinemaController extends MenuController implements Initializable {
 
     @FXML
-    private TextArea taLibSec;
+    private TextField tfDenomination, tfAdresse, tfVille;
+    //private TextArea taLibSec;
+    @FXML ListView<Franchise> lvFranchise;
 
-    private int idSec;
+    private int idCinema;
 
     @FXML
     private Button bRetour, bEnregistrer;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        ObservableList<Franchise> franchises = getFranchiseList();
+        lvFranchise.setItems(franchises);
+
+        Cinema cinema = Navigation.getParam("cinema");
+
+        tfDenomination.setText(cinema.getDenomination());
+        tfAdresse.setText(cinema.getAdresse());
+        tfVille.setText(cinema.getVille());
+        lvFranchise.getSelectionModel().select(cinema.getIdFranchise() - 1);
+
+        this.idCinema = cinema.getIdCinema();
 
     }
 
-    public void setIdSec(int idSec) {
-        this.idSec = idSec;
+    private ObservableList<Franchise> getFranchiseList() {
+
+        FranchiseDAO franchiseDAO = new FranchiseDAO();
+        List<Franchise> franchises = franchiseDAO.findAll();
+
+        ObservableList<Franchise> list = FXCollections.observableArrayList(franchises);
+        return list;
     }
 
-    public void setAttrinuts() {
-        CinemaDAO sectionDAO = new CinemaDAO();
-        Cinema sec = sectionDAO.find(idSec);
-        taLibSec.setText(sec.getDenomination());
-    }
+
+    // public void setAttrinuts() {
+    //     CinemaDAO sectionDAO = new CinemaDAO();
+    //     Cinema sec = sectionDAO.find(idSec);
+    //     taLibSec.setText(sec.getDenomination());
+    // }
 
     @FXML
     private void bRetourClick(ActionEvent event) {
-        Stage stageP = (Stage) bRetour.getScene().getWindow();
-        stageP.close();
-        try {
+        Navigation.goBack(bRetour.getScene().getWindow());
 
-            FXMLLoader fxmlLoader = new FXMLLoader(
-                    getClass().getResource("/cinema/views/page_liste_cinema.fxml"));
-            Parent root = fxmlLoader.load();
+        // Stage stageP = (Stage) bRetour.getScene().getWindow();
+        // stageP.close();
+        // try {
 
-            ListeCinemaController listeCinemaController = fxmlLoader.getController();
-            listeCinemaController.setName(nameUti);
+        //     FXMLLoader fxmlLoader = new FXMLLoader(
+        //             getClass().getResource("/cinema/views/page_liste_cinema.fxml"));
+        //     Parent root = fxmlLoader.load();
 
-            Stage stage = new Stage();
-            stage.setTitle("Liste franchises");
-            stage.setScene(new Scene(root));
+        //     ListeCinemaController listeCinemaController = fxmlLoader.getController();
+        //     listeCinemaController.setName(nameUti);
 
-            stage.initModality(Modality.APPLICATION_MODAL);
+        //     Stage stage = new Stage();
+        //     stage.setTitle("Liste franchises");
+        //     stage.setScene(new Scene(root));
 
-            stage.show();
+        //     stage.initModality(Modality.APPLICATION_MODAL);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        //     stage.show();
+
+        // } catch (Exception e) {
+        //     e.printStackTrace();
+        // }
     }
 
     @FXML
     private void bEnregistrerClick(ActionEvent event) {
-        String lib = taLibSec.getText();
-        if (!lib.trim().isEmpty()) {
-            Cinema sec = new Cinema(idSec, lib, lib, lib, idSec);
-            CinemaDAO sectionDAO = new CinemaDAO();
-            boolean controle = sectionDAO.update(sec);
-            if (controle) {
-                Stage stageP = (Stage) bRetour.getScene().getWindow();
-                stageP.close();
-                try {
+        String denomination = tfDenomination.getText();
+        String adresse = tfAdresse.getText();
+        String ville = tfVille.getText();
+        Franchise selected = lvFranchise.getSelectionModel().getSelectedItem();
+        if (denomination != null && adresse != null && ville != null && selected != null 
+            && !denomination.trim().isEmpty() && !adresse.trim().isEmpty() && !ville.trim().isEmpty()){
+                int idFranchise = selected.getIdFranchise();
+                Cinema cinema = new Cinema(this.idCinema, denomination, adresse, ville, idFranchise);
 
-                    FXMLLoader fxmlLoader = new FXMLLoader(
-                            getClass().getResource("/cinema/views/page_liste_cinema.fxml"));
-                    Parent root = fxmlLoader.load();
-
-                    ListeCinemaController listeCinemaController = fxmlLoader.getController();
-                    listeCinemaController.setName(nameUti);
-
-                    Stage stage = new Stage();
-                    stage.setTitle("Liste franchises");
-                    stage.setScene(new Scene(root));
-
-                    stage.initModality(Modality.APPLICATION_MODAL);
-
-                    stage.show();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
+                CinemaDAO cinemaDAO = new CinemaDAO();
+                boolean controle = cinemaDAO.update(cinema);
+                if(controle){
+                    Navigation.goTo("/cinema/views/page_liste_cinema.fxml", bRetour.getScene().getWindow());
                 }
             }
-        } else {
-            try {
-                // Charger le fichier FXML
-                FXMLLoader fxmlLoader = new FXMLLoader(
-                        getClass().getResource("/cinema/views/popup_ajout_etu.fxml"));
-                Parent root = fxmlLoader.load();
 
-                // Créer une nouvelle fenêtre (Stage)
-                Stage stage = new Stage();
-                stage.setTitle("Pop-up");
-                stage.setScene(new Scene(root));
+        // String lib = taLibSec.getText();
+        // if (!lib.trim().isEmpty()) {
+        //     Cinema sec = new Cinema(idSec, lib, lib, lib, idSec);
+        //     CinemaDAO sectionDAO = new CinemaDAO();
+        //     boolean controle = sectionDAO.update(sec);
+        //     if (controle) {
+        //         Stage stageP = (Stage) bRetour.getScene().getWindow();
+        //         stageP.close();
+        //         try {
 
-                // Configurer la fenêtre en tant que modal
-                stage.initModality(Modality.APPLICATION_MODAL);
+        //             FXMLLoader fxmlLoader = new FXMLLoader(
+        //                     getClass().getResource("/cinema/views/page_liste_cinema.fxml"));
+        //             Parent root = fxmlLoader.load();
 
-                // Afficher la fenêtre et attendre qu'elle se ferme
-                stage.show();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+        //             ListeCinemaController listeCinemaController = fxmlLoader.getController();
+        //             listeCinemaController.setName(nameUti);
+
+        //             Stage stage = new Stage();
+        //             stage.setTitle("Liste franchises");
+        //             stage.setScene(new Scene(root));
+
+        //             stage.initModality(Modality.APPLICATION_MODAL);
+
+        //             stage.show();
+
+        //         } catch (Exception e) {
+        //             e.printStackTrace();
+        //         }
+        //     }
+        // } else {
+        //     try {
+        //         // Charger le fichier FXML
+        //         FXMLLoader fxmlLoader = new FXMLLoader(
+        //                 getClass().getResource("/cinema/views/popup_ajout_etu.fxml"));
+        //         Parent root = fxmlLoader.load();
+
+        //         // Créer une nouvelle fenêtre (Stage)
+        //         Stage stage = new Stage();
+        //         stage.setTitle("Pop-up");
+        //         stage.setScene(new Scene(root));
+
+        //         // Configurer la fenêtre en tant que modal
+        //         stage.initModality(Modality.APPLICATION_MODAL);
+
+        //         // Afficher la fenêtre et attendre qu'elle se ferme
+        //         stage.show();
+        //     } catch (Exception e) {
+        //         e.printStackTrace();
+        //     }
+        // }
     }
 }
