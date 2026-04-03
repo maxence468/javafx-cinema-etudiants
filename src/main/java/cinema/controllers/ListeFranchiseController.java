@@ -128,28 +128,29 @@ public class ListeFranchiseController extends MenuController implements Initiali
             {
                 btn.setOnAction(event -> {
                     Franchise franchise = getTableView().getItems().get(getIndex());
-                    Stage stageP = (Stage) bRetour.getScene().getWindow();
-                    stageP.close();
+                    Navigation.goTo("/cinema/views/page_modif_franchise.fxml", "franchise", franchise, bRetour.getScene().getWindow());
+                    // Stage stageP = (Stage) bRetour.getScene().getWindow();
+                    // stageP.close();
 
-                    try {
-                        FXMLLoader fxmlLoader = new FXMLLoader(
-                                getClass().getResource("/cinema/views/page_modif_franchise.fxml"));
-                        Parent root = fxmlLoader.load();
+                    // try {
+                    //     FXMLLoader fxmlLoader = new FXMLLoader(
+                    //             getClass().getResource("/cinema/views/page_modif_franchise.fxml"));
+                    //     Parent root = fxmlLoader.load();
 
-                        ModifierFranchiseController modifierFranchiseCtrl = fxmlLoader.getController();
-                        modifierFranchiseCtrl.setAttributes(franchise);
-                        modifierFranchiseCtrl.setName(nameUti);
+                    //     ModifierFranchiseController modifierFranchiseCtrl = fxmlLoader.getController();
+                    //     modifierFranchiseCtrl.setAttributes(franchise);
+                    //     modifierFranchiseCtrl.setName(nameUti);
 
-                        Stage stage = new Stage();
-                        stage.setTitle("Modification franchise");
-                        stage.setScene(new Scene(root));
+                    //     Stage stage = new Stage();
+                    //     stage.setTitle("Modification franchise");
+                    //     stage.setScene(new Scene(root));
 
-                        stage.initModality(Modality.APPLICATION_MODAL);
+                    //     stage.initModality(Modality.APPLICATION_MODAL);
 
-                        stage.show();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    //     stage.show();
+                    // } catch (Exception e) {
+                    //     e.printStackTrace();
+                    // }
                 });
             }
 
