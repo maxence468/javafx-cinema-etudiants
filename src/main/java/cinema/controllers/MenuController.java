@@ -35,33 +35,35 @@ public class MenuController {
 
     @FXML
     public void bListFranchiseClick(ActionEvent event) {
-        Stage stageP = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
-        stageP.close();
-        try {
+        Window window = ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
+        Navigation.goTo("/cinema/views/page_liste_franchise.fxml", window);
+        // Stage stageP = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
+        // stageP.close();
+        // try {
 
-            // Charger le fichier FXML
-            FXMLLoader fxmlLoader = new FXMLLoader(
-                    getClass().getResource("/cinema/views/page_liste_franchise.fxml"));
-            Parent root = fxmlLoader.load();
+        //     // Charger le fichier FXML
+        //     FXMLLoader fxmlLoader = new FXMLLoader(
+        //             getClass().getResource("/cinema/views/page_liste_franchise.fxml"));
+        //     Parent root = fxmlLoader.load();
 
-            // Obtenir le contrôleur de la nouvelle fenetre
-            ListeFranchiseController listeFranchiseController = fxmlLoader.getController();
-            listeFranchiseController.setName(nameUti);
+        //     // Obtenir le contrôleur de la nouvelle fenetre
+        //     ListeFranchiseController listeFranchiseController = fxmlLoader.getController();
+        //     listeFranchiseController.setName(nameUti);
 
-            // Créer une nouvelle fenêtre (Stage)
-            Stage stage = new Stage();
-            stage.setTitle("Liste franchises");
-            stage.setScene(new Scene(root));
+        //     // Créer une nouvelle fenêtre (Stage)
+        //     Stage stage = new Stage();
+        //     stage.setTitle("Liste franchises");
+        //     stage.setScene(new Scene(root));
 
-            // Configurer la fenêtre en tant que modal
-            stage.initModality(Modality.APPLICATION_MODAL);
+        //     // Configurer la fenêtre en tant que modal
+        //     stage.initModality(Modality.APPLICATION_MODAL);
 
-            // Afficher la fenêtre et attendre qu'elle se ferme
-            stage.show();
+        //     // Afficher la fenêtre et attendre qu'elle se ferme
+        //     stage.show();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // } catch (Exception e) {
+        //     e.printStackTrace();
+        // }
     }
 
     @FXML

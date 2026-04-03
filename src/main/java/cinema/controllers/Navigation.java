@@ -53,6 +53,10 @@ public class Navigation {
 
     public static void goTo(String fxmlPath, Window currentWindow) {
         try {
+            if (historique.isEmpty() || !historique.peek().equals(fxmlPath)) {
+                historique.push(fxmlPath);
+            }
+
             Parent root = FXMLLoader.load(Navigation.class.getResource(fxmlPath));
             Stage newStage = new Stage();
             newStage.setScene(new Scene(root));
@@ -78,11 +82,11 @@ public class Navigation {
         goTo(fxmlPath, currentWindow);
     }
 
-    public static void goBack() {
+    public static void goBack(Window currentWindow) {
         if (historique.size() >= 2) {
             historique.pop();
             String previous = historique.peek();
-            goTo(previous);
+            goTo(previous, currentWindow);
         }
     }
 

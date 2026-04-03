@@ -92,31 +92,33 @@ public class ListeFranchiseController extends MenuController implements Initiali
 
     @FXML
     private void bRetourClick() {
-        Stage stageP = (Stage) bRetour.getScene().getWindow();
-        stageP.close();
+        Navigation.goBack(bRetour.getScene().getWindow());
 
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(
-                    getClass().getResource("/cinema/views/page_accueil.fxml"));
-            Parent root = fxmlLoader.load();
+        // Stage stageP = (Stage) bRetour.getScene().getWindow();
+        // stageP.close();
 
-            AccueilController accueilController = fxmlLoader.getController();
-            accueilController.setName(nameUti);
-            accueilController.setBienvenue();
+        // try {
+        //     FXMLLoader fxmlLoader = new FXMLLoader(
+        //             getClass().getResource("/cinema/views/page_accueil.fxml"));
+        //     Parent root = fxmlLoader.load();
 
-            // Créer une nouvelle fenêtre (Stage)
-            Stage stage = new Stage();
-            stage.setTitle("Liste franchises");
-            stage.setScene(new Scene(root));
+        //     AccueilController accueilController = fxmlLoader.getController();
+        //     accueilController.setName(nameUti);
+        //     accueilController.setBienvenue();
 
-            // Configurer la fenêtre en tant que modal
-            stage.initModality(Modality.APPLICATION_MODAL);
+        //     // Créer une nouvelle fenêtre (Stage)
+        //     Stage stage = new Stage();
+        //     stage.setTitle("Liste franchises");
+        //     stage.setScene(new Scene(root));
 
-            // Afficher la fenêtre et attendre qu'elle se ferme
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        //     // Configurer la fenêtre en tant que modal
+        //     stage.initModality(Modality.APPLICATION_MODAL);
+
+        //     // Afficher la fenêtre et attendre qu'elle se ferme
+        //     stage.show();
+        // } catch (Exception e) {
+        //     e.printStackTrace();
+        // }
 
     }
 
