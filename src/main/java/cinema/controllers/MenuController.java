@@ -68,30 +68,32 @@ public class MenuController {
 
     @FXML
     public void bAjouterFranchiseClick(ActionEvent event) {
-        Stage stageP = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
-        stageP.close();
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(
-                    getClass().getResource("/cinema/views/page_ajout_franchise.fxml"));
-            Parent root = fxmlLoader.load();
+        Window window = ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
+        Navigation.goTo("/cinema/views/page_ajout_franchise.fxml", window);
+        // Stage stageP = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
+        // stageP.close();
+        // try {
+        //     FXMLLoader fxmlLoader = new FXMLLoader(
+        //             getClass().getResource("/cinema/views/page_ajout_franchise.fxml"));
+        //     Parent root = fxmlLoader.load();
 
-            // Obtenir le contrôleur de la nouvelle fenetre
-            AjouterFranchiseController ajouterFranchiseController = fxmlLoader.getController();
-            ajouterFranchiseController.setName(nameUti);
+        //     // Obtenir le contrôleur de la nouvelle fenetre
+        //     AjouterFranchiseController ajouterFranchiseController = fxmlLoader.getController();
+        //     ajouterFranchiseController.setName(nameUti);
 
-            // Créer une nouvelle fenêtre (Stage)
-            Stage stage = new Stage();
-            stage.setTitle("Ajouter une franchise");
-            stage.setScene(new Scene(root));
+        //     // Créer une nouvelle fenêtre (Stage)
+        //     Stage stage = new Stage();
+        //     stage.setTitle("Ajouter une franchise");
+        //     stage.setScene(new Scene(root));
 
-            // Configurer la fenêtre en tant que modal
-            stage.initModality(Modality.APPLICATION_MODAL);
+        //     // Configurer la fenêtre en tant que modal
+        //     stage.initModality(Modality.APPLICATION_MODAL);
 
-            // Afficher la fenêtre et attendre qu'elle se ferme
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        //     // Afficher la fenêtre et attendre qu'elle se ferme
+        //     stage.show();
+        // } catch (Exception e) {
+        //     e.printStackTrace();
+        // }
 
     }
 

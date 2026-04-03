@@ -13,6 +13,12 @@ public class Franchise {
     public Franchise() {
     }
 
+    public Franchise(String nomFranchise, String siegeSocial, int idGerant) {
+        this.nomFranchise.set(nomFranchise);
+        this.siegeSocial.set(siegeSocial);
+        this.idGerant = idGerant;
+    }
+
     public Franchise(int idFranchise, String nomFranchise, String siegeSocial, int idGerant) {
         this.idFranchise = idFranchise;
         this.nomFranchise.set(nomFranchise);

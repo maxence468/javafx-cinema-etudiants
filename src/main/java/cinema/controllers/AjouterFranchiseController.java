@@ -50,47 +50,50 @@ public class AjouterFranchiseController extends MenuController implements Initia
 
     @FXML
     public void bRetourClick(ActionEvent event) {
-        // On fait le lien avec l'ecran actuel
-        Stage stageP = (Stage) bRetour.getScene().getWindow();
-        // on ferme l'écran
-        stageP.close();
+        Navigation.goBack(bRetour.getScene().getWindow());
 
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(
-                    getClass().getResource("/cinema/views/page_accueil.fxml"));
-            Parent root = fxmlLoader.load();
+        // // On fait le lien avec l'ecran actuel
+        // Stage stageP = (Stage) bRetour.getScene().getWindow();
+        // // on ferme l'écran
+        // stageP.close();
 
-            AccueilController accueilController = fxmlLoader.getController();
-            accueilController.setName(nameUti);
-            accueilController.setBienvenue();
+        // try {
+        //     FXMLLoader fxmlLoader = new FXMLLoader(
+        //             getClass().getResource("/cinema/views/page_accueil.fxml"));
+        //     Parent root = fxmlLoader.load();
 
-            // Créer une nouvelle fenêtre (Stage)
-            Stage stage = new Stage();
-            stage.setTitle("Liste franchises");
-            stage.setScene(new Scene(root));
+        //     AccueilController accueilController = fxmlLoader.getController();
+        //     accueilController.setName(nameUti);
+        //     accueilController.setBienvenue();
 
-            // Configurer la fenêtre en tant que modal
-            stage.initModality(Modality.APPLICATION_MODAL);
+        //     // Créer une nouvelle fenêtre (Stage)
+        //     Stage stage = new Stage();
+        //     stage.setTitle("Liste franchises");
+        //     stage.setScene(new Scene(root));
 
-            // Afficher la fenêtre et attendre qu'elle se ferme
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        //     // Configurer la fenêtre en tant que modal
+        //     stage.initModality(Modality.APPLICATION_MODAL);
+
+        //     // Afficher la fenêtre et attendre qu'elle se ferme
+        //     stage.show();
+        // } catch (Exception e) {
+        //     e.printStackTrace();
+        // }
 
     }
 
     @FXML
     public void bEnregistrerClick(ActionEvent event) {
 
-        String x = tfNomFranchise.getText();
-        String y = tfSiegeSocial.getText();
+        String nomFranchise = tfNomFranchise.getText();
+        String siegeSocial = tfSiegeSocial.getText();
 
-        int z = 1;
-        Franchise bloup = new Franchise(0, x, y, z);
+        Utilisateur gerantSelectionne = lvGerantFranchise.getSelectionModel().getSelectedItem();
+        int idGerant = gerantSelectionne.getIdUtilisateur();
+        Franchise franchise = new Franchise(nomFranchise, siegeSocial, idGerant);
 
         FranchiseDAO franchiseDAO = new FranchiseDAO();
-        boolean controle = franchiseDAO.create(bloup);
+        boolean controle = franchiseDAO.create(franchise);
         if (controle) {
             tfNomFranchise.clear();
             tfSiegeSocial.clear();
