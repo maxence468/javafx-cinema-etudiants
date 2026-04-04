@@ -42,7 +42,7 @@
                                 <MenuItem fx:id="bAjouterFranchise" mnemonicParsing="false" onAction="#bAjouterFranchiseClick" text="Ajouter une franchise" />
                             </items>
                         </Menu>
-                        <Menu fx:id="gestionCinema" mnemonicParsing="false" text="Gestion section">
+                        <Menu fx:id="gestionCinema" mnemonicParsing="false" text="Gestion cinéma">
                             <graphic>
                                 <ImageView fitHeight="16" fitWidth="16">
                                     <image>
@@ -51,8 +51,8 @@
                                 </ImageView>
                             </graphic>
                             <items>
-                                <MenuItem fx:id="bListeCinema" mnemonicParsing="false" onAction="#bListeCinemaClick" text="Liste des sections" />
-                                <MenuItem fx:id="bAjouterCinema" mnemonicParsing="false" onAction="#bAjouterCinemaClick" text="Ajouter une section" />
+                                <MenuItem fx:id="bListeCinema" mnemonicParsing="false" onAction="#bListeCinemaClick" text="Liste des cinémas" />
+                                <MenuItem fx:id="bAjouterCinema" mnemonicParsing="false" onAction="#bAjouterCinemaClick" text="Ajouter un cinéma" />
                             </items>
                         </Menu>
                         <Menu fx:id="gestionSalle" mnemonicParsing="false" text="Gestion salles">
@@ -64,8 +64,8 @@
                                 </ImageView>
                             </graphic>
                             <items>
-                                <MenuItem fx:id="bListeSalle" mnemonicParsing="false" onAction="#bListeSalleClick" text="Liste cours" />
-                                <MenuItem fx:id="bAjouterSalle" mnemonicParsing="false" onAction="#bAjouterSalleClick" text="Ajouter un cours" />
+                                <MenuItem fx:id="bListeSalle" mnemonicParsing="false" onAction="#bListeSalleClick" text="Liste des salles" />
+                                <MenuItem fx:id="bAjouterSalle" mnemonicParsing="false" onAction="#bAjouterSalleClick" text="Ajouter une salle" />
                             </items>
                         </Menu>
                         <Menu fx:id="bAutres" mnemonicParsing="false" text="Autres">
