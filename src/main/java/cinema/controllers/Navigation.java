@@ -114,6 +114,7 @@ public class Navigation {
             case "/cinema/views/page_liste_franchise.fxml": return "Liste des franchises";
             case "/cinema/views/page_ajout_franchise.fxml": return "Ajouter une franchise";
             case "/cinema/views/page_modif_franchise.fxml": return "Modifier une franchise";
+            case "/cinema/views/page_modif_cinema.fxml": return "Modifier un cinéma";
             case "/cinema/views/page_liste_cinema.fxml":    return "Liste des cinémas";
             case "/cinema/views/page_ajout_cinema.fxml":    return "Ajouter un cinéma";
             case "/cinema/views/page_liste_salle.fxml":     return "Liste des salles";

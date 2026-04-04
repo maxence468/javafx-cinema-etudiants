@@ -128,25 +128,28 @@ public class MenuController {
 
     @FXML
     public void bAjouterCinemaClick(ActionEvent event) {
-        Stage stageP = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
-        stageP.close();
-        try {
+        Window window = ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
+        Navigation.goTo("/cinema/views/page_ajout_cinema.fxml", window);
 
-            FXMLLoader fxmlLoader = new FXMLLoader(
-                    getClass().getResource("/cinema/views/page_ajout_section.fxml"));
-            Parent root = fxmlLoader.load();
+        // Stage stageP = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
+        // stageP.close();
+        // try {
 
-            Stage stage = new Stage();
-            stage.setTitle("Ajout d'une Section");
-            stage.setScene(new Scene(root));
+        //     FXMLLoader fxmlLoader = new FXMLLoader(
+        //             getClass().getResource("/cinema/views/page_ajout_section.fxml"));
+        //     Parent root = fxmlLoader.load();
 
-            stage.initModality(Modality.APPLICATION_MODAL);
+        //     Stage stage = new Stage();
+        //     stage.setTitle("Ajout d'une Section");
+        //     stage.setScene(new Scene(root));
 
-            stage.show();
+        //     stage.initModality(Modality.APPLICATION_MODAL);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        //     stage.show();
+
+        // } catch (Exception e) {
+        //     e.printStackTrace();
+        // }
     }
 
     @FXML

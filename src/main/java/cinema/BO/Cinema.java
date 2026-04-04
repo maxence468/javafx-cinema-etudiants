@@ -17,6 +17,13 @@ public class Cinema {
         this.idFranchise = idFranchise;
     }
 
+    public Cinema(String denomination, String adresse, String ville, int idFranchise) {
+        this.denomination = denomination;
+        this.adresse = adresse;
+        this.ville = ville;
+        this.idFranchise = idFranchise;
+    }
+
     public int getIdCinema() {
         return idCinema;
     }
