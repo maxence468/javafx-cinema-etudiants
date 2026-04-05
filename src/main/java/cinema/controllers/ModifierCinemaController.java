@@ -45,7 +45,14 @@ public class ModifierCinemaController extends MenuController implements Initiali
         tfDenomination.setText(cinema.getDenomination());
         tfAdresse.setText(cinema.getAdresse());
         tfVille.setText(cinema.getVille());
-        lvFranchise.getSelectionModel().select(cinema.getIdFranchise() - 1);
+
+        for (Franchise franchise : lvFranchise.getItems()) {
+            if (franchise.getIdFranchise() == cinema.getIdFranchise()) {
+                lvFranchise.getSelectionModel().select(franchise);
+                break;
+            }
+        }
+        //lvFranchise.getSelectionModel().select(cinema.getIdFranchise() - 1);
 
         this.idCinema = cinema.getIdCinema();
 

@@ -42,7 +42,14 @@ public class ModifierFranchiseController extends MenuController implements Initi
         Franchise franchise = Navigation.getParam("franchise");
         tfNomFranchise.setText(franchise.getNomFranchise());
         tfSiegeSocial.setText(franchise.getSiegeSocial());
-        lvGerantFranchise.getSelectionModel().select(franchise.getIdGerant() - 1);
+
+        for (Utilisateur gerant : lvGerantFranchise.getItems()) {
+            if (gerant.getIdUtilisateur() == franchise.getIdGerant()) {
+                lvGerantFranchise.getSelectionModel().select(gerant);
+                break;
+            }
+        }
+        //lvGerantFranchise.getSelectionModel().select(franchise.getIdGerant() - 1);
 
         this.idFranchise = franchise.getIdFranchise();
     }
