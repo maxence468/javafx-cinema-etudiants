@@ -68,4 +68,8 @@ public class Cinema {
         this.idFranchise = idFranchise;
     }
 
+    public String toString(){
+        return denomination;
+    }
+
 }

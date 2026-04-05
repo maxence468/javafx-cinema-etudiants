@@ -119,6 +119,7 @@ public class Navigation {
             case "/cinema/views/page_ajout_cinema.fxml":    return "Ajouter un cinéma";
             case "/cinema/views/page_liste_salle.fxml":     return "Liste des salles";
             case "/cinema/views/page_ajout_salle.fxml":     return "Ajouter une salle";
+            case "/cinema/views/page_modif_salle.fxml": return "Modifier une salle";
             default: return "Gestion de franchises";
     }
 }
