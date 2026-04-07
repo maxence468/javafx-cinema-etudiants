@@ -106,6 +106,10 @@ public class Navigation {
         params.clear();
     }
 
+    public static void removeParam(String key){
+        params.remove(key);
+    }
+
     // Méthode qui associe un titre à chaque page
     private static String getTitre(String fxmlPath) {
         switch (fxmlPath) {

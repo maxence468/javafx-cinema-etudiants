@@ -154,6 +154,7 @@ public class MenuController {
 
     @FXML
     public void bListeSalleClick(ActionEvent event) {
+        Navigation.removeParam("idCinema");
         Window window = ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
         Navigation.goTo("/cinema/views/page_liste_salle.fxml", window);
 

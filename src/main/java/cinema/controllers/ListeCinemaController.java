@@ -47,6 +47,7 @@ public class ListeCinemaController extends MenuController implements Initializab
 
         btnModif();
         btnSupp();
+        btnVoirPlus();
     }
 
     private ObservableList<Cinema> getCinema() {
@@ -133,6 +134,26 @@ public class ListeCinemaController extends MenuController implements Initializab
                     CinemaDAO cinemaDAO = new CinemaDAO();
                     cinemaDAO.delete(cinema);
                     
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                setGraphic(empty ? null : btn);
+            }
+        });
+    }
+
+    private void btnVoirPlus(){
+        tcVp.setCellFactory(col -> new TableCell<Cinema, Void>() {
+            private Button btn = new Button("Voir Les Salles");
+            {
+                btn.setOnAction(event -> {
+                    Cinema cinema = getTableView().getItems().get(getIndex());
+                    int idCinema = cinema.getIdCinema(); 
+                    Navigation.setParam("idCinema", idCinema);
+                    Navigation.goTo("/cinema/views/page_liste_salle.fxml", bRetour.getScene().getWindow());
                 });
             }
 

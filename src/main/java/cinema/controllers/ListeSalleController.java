@@ -54,9 +54,14 @@ public class ListeSalleController extends MenuController implements Initializabl
     }
 
     private ObservableList<Salle> getSalle() {
-
         SalleDAO salleDAO = new SalleDAO();
         List<Salle> mesSalles = salleDAO.findAll();
+
+        Integer idCinema = Navigation.getParam("idCinema");
+        if(idCinema != null){
+            mesSalles.removeIf(salle -> salle.getIdCinema() != idCinema);
+        }
+        
         ObservableList<Salle> list = FXCollections.observableArrayList(mesSalles);
         return list;
     }
