@@ -4,12 +4,16 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import cinema.BO.Cinema;
 import cinema.BO.Franchise;
+import cinema.BO.Cinema;
 import cinema.BO.Salle;
+import cinema.BO.Utilisateur;
+import cinema.DAO.FranchiseDAO;
 import cinema.DAO.CinemaDAO;
 import cinema.DAO.SalleDAO;
-import cinema.DAO.FranchiseDAO;
+import cinema.DAO.UtilisateurDAO;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,18 +21,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.ListView;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.Spinner;
 
-public class ModifierSalleController extends MenuController implements Initializable {
 
+public class AjouterSalleController extends MenuController implements Initializable {
+
+    @FXML
+    private Button bRetour, bEnregistrer;
     @FXML
     private TextField tfDescription;
 
@@ -37,30 +41,13 @@ public class ModifierSalleController extends MenuController implements Initializ
 
     @FXML ListView<Cinema> lvCinema;
 
-    private int idSalle;
-
-    @FXML
-    private Button bRetour, bEnregistrer;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ObservableList<Cinema> cinemas = getCinemaList();
         lvCinema.setItems(cinemas);
 
-        Salle salle = Navigation.getParam("salle");
-
-        spNumero.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, salle.getNumero()));
-        tfDescription.setText(salle.getDescription());
-        spNbPlace.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 500, salle.getNbPlace()));
-        
-        for (Cinema cinema : lvCinema.getItems()) {
-            if (cinema.getIdCinema() == salle.getIdCinema()) {
-                lvCinema.getSelectionModel().select(cinema);
-                break;
-            }
-        }
-
-        this.idSalle = salle.getIdSalle();
+        spNumero.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100));
+        spNbPlace.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 500));
 
     }
 
@@ -74,12 +61,12 @@ public class ModifierSalleController extends MenuController implements Initializ
     }
 
     @FXML
-    private void bRetourClick(ActionEvent event) {
+    public void bRetourClick(ActionEvent event) {
         Navigation.goBack(bRetour.getScene().getWindow());
     }
 
     @FXML
-    private void bEnregistrerClick(ActionEvent event) {
+    public void bEnregistrerClick(ActionEvent event) {
         Integer numero = (Integer) spNumero.getValue();
         String description = tfDescription.getText();
         Integer nbPlace = (Integer) spNbPlace.getValue();
@@ -87,13 +74,27 @@ public class ModifierSalleController extends MenuController implements Initializ
         if (numero != null && description != null && nbPlace != null && selected != null 
              && !description.trim().isEmpty()){
                 int idCinema = selected.getIdCinema();
-                Salle salle = new Salle(this.idSalle, numero, description, nbPlace, idCinema);
+                Salle salle = new Salle(numero, description, nbPlace, idCinema);
 
                 SalleDAO salleDAO = new SalleDAO();
-                boolean controle = salleDAO.update(salle);
+                boolean controle = salleDAO.create(salle);
                 if(controle){
-                    Navigation.goTo("/cinema/views/page_liste_salle.fxml", bRetour.getScene().getWindow());
+                    spNumero.getValueFactory().setValue(0);
+                    tfDescription.clear();
+                    spNbPlace.getValueFactory().setValue(0);
+                    lvCinema.getSelectionModel().clearSelection();
                 }
-        }
+            }
+
     }
+
+    @FXML
+    public void bEffacerClick(ActionEvent event) {
+        if (tfDescription != null)
+            tfDescription.clear();
+        spNumero.getValueFactory().setValue(0);
+        spNbPlace.getValueFactory().setValue(0);
+        lvCinema.getSelectionModel().clearSelection();
+    }
+
 }

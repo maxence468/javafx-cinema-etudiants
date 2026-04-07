@@ -124,7 +124,7 @@
                         <Font name="System Bold" size="14.0" />
                     </font>
                 </Label>
-                <Spinner fx:id="spNumero" prefHeight="26.0" prefWidth="375.0" />
+                <Spinner fx:id="spNumero" prefHeight="26.0" prefWidth="375.0" editable="true" />
             </children>
         </HBox>
 
@@ -163,7 +163,7 @@
                         <Font name="System Bold" size="14.0" />
                     </font>
                 </Label>
-                <Spinner fx:id="spNbPlace" prefHeight="26.0" prefWidth="375.0" />
+                <Spinner fx:id="spNbPlace" prefHeight="26.0" prefWidth="375.0" editable="true" />
             </children>
         </HBox>
 

@@ -188,28 +188,31 @@ public class MenuController {
 
     @FXML
     public void bAjouterSalleClick(ActionEvent event) {
-        Stage stageP = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
-        stageP.close();
-        try {
+        Window window = ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
+        Navigation.goTo("/cinema/views/page_ajout_salle.fxml", window);
 
-            // Charger le fichier FXML
-            FXMLLoader fxmlLoader = new FXMLLoader(
-                    getClass().getResource("/cinema/views/page_ajout_cours.fxml"));
-            Parent root = fxmlLoader.load();
+        // Stage stageP = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
+        // stageP.close();
+        // try {
 
-            // Créer une nouvelle fenêtre (Stage)
-            Stage stage = new Stage();
-            stage.setTitle("Ajout d'un cours");
-            stage.setScene(new Scene(root));
+        //     // Charger le fichier FXML
+        //     FXMLLoader fxmlLoader = new FXMLLoader(
+        //             getClass().getResource("/cinema/views/page_ajout_cours.fxml"));
+        //     Parent root = fxmlLoader.load();
 
-            // Configurer la fenêtre en tant que modal
-            stage.initModality(Modality.APPLICATION_MODAL);
+        //     // Créer une nouvelle fenêtre (Stage)
+        //     Stage stage = new Stage();
+        //     stage.setTitle("Ajout d'un cours");
+        //     stage.setScene(new Scene(root));
 
-            // Afficher la fenêtre et attendre qu'elle se ferme
-            stage.show();
+        //     // Configurer la fenêtre en tant que modal
+        //     stage.initModality(Modality.APPLICATION_MODAL);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        //     // Afficher la fenêtre et attendre qu'elle se ferme
+        //     stage.show();
+
+        // } catch (Exception e) {
+        //     e.printStackTrace();
+        // }
     }
 }
