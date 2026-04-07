@@ -19,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
@@ -32,6 +33,8 @@ public class AjouterCinemaController extends MenuController implements Initializ
     private Button bRetour, bEnregistrer;
     @FXML
     private ListView<Franchise> lvFranchise;
+    @FXML
+    private Label lbFeedback;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -73,8 +76,12 @@ public class AjouterCinemaController extends MenuController implements Initializ
                     tfAdresse.clear();
                     tfVille.clear();
                     lvFranchise.getSelectionModel().clearSelection();
+                    afficherSuccess();
                 }
-            }
+        }
+        else{
+            afficherErreur();
+        }
 
     }
 
@@ -87,6 +94,16 @@ public class AjouterCinemaController extends MenuController implements Initializ
         if (tfVille != null)
             tfVille.clear();
         lvFranchise.getSelectionModel().clearSelection();
+    }
+
+    public void afficherErreur(){
+        lbFeedback.setText("Tous les champs doivent être remplis");
+        lbFeedback.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;");
+    }
+
+    public void afficherSuccess(){
+        lbFeedback.setText("Création du cinéma réussie");
+        lbFeedback.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: green;");
     }
 
 }

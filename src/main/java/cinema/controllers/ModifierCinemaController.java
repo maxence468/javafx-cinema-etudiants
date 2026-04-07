@@ -20,6 +20,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Label;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -28,7 +29,10 @@ public class ModifierCinemaController extends MenuController implements Initiali
     @FXML
     private TextField tfDenomination, tfAdresse, tfVille;
     //private TextArea taLibSec;
-    @FXML ListView<Franchise> lvFranchise;
+    @FXML 
+    ListView<Franchise> lvFranchise;
+    @FXML
+    private Label lbFeedback;
 
     private int idCinema;
 
@@ -118,57 +122,14 @@ public class ModifierCinemaController extends MenuController implements Initiali
                 if(controle){
                     Navigation.goTo("/cinema/views/page_liste_cinema.fxml", bRetour.getScene().getWindow());
                 }
-            }
+        }
+        else{
+            afficherErreur();
+        }
+    }
 
-        // String lib = taLibSec.getText();
-        // if (!lib.trim().isEmpty()) {
-        //     Cinema sec = new Cinema(idSec, lib, lib, lib, idSec);
-        //     CinemaDAO sectionDAO = new CinemaDAO();
-        //     boolean controle = sectionDAO.update(sec);
-        //     if (controle) {
-        //         Stage stageP = (Stage) bRetour.getScene().getWindow();
-        //         stageP.close();
-        //         try {
-
-        //             FXMLLoader fxmlLoader = new FXMLLoader(
-        //                     getClass().getResource("/cinema/views/page_liste_cinema.fxml"));
-        //             Parent root = fxmlLoader.load();
-
-        //             ListeCinemaController listeCinemaController = fxmlLoader.getController();
-        //             listeCinemaController.setName(nameUti);
-
-        //             Stage stage = new Stage();
-        //             stage.setTitle("Liste franchises");
-        //             stage.setScene(new Scene(root));
-
-        //             stage.initModality(Modality.APPLICATION_MODAL);
-
-        //             stage.show();
-
-        //         } catch (Exception e) {
-        //             e.printStackTrace();
-        //         }
-        //     }
-        // } else {
-        //     try {
-        //         // Charger le fichier FXML
-        //         FXMLLoader fxmlLoader = new FXMLLoader(
-        //                 getClass().getResource("/cinema/views/popup_ajout_etu.fxml"));
-        //         Parent root = fxmlLoader.load();
-
-        //         // Créer une nouvelle fenêtre (Stage)
-        //         Stage stage = new Stage();
-        //         stage.setTitle("Pop-up");
-        //         stage.setScene(new Scene(root));
-
-        //         // Configurer la fenêtre en tant que modal
-        //         stage.initModality(Modality.APPLICATION_MODAL);
-
-        //         // Afficher la fenêtre et attendre qu'elle se ferme
-        //         stage.show();
-        //     } catch (Exception e) {
-        //         e.printStackTrace();
-        //     }
-        // }
+    public void afficherErreur(){
+            lbFeedback.setText("Tous les champs doivent être remplis");
+            lbFeedback.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;");
     }
 }

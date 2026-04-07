@@ -106,6 +106,7 @@ public class ConnexionController implements Initializable {
             Stage stage = new Stage();
             stage.setTitle("Error Window");
             stage.setScene(new Scene(root));
+            stage.getIcons().add(new Image(Navigation.class.getResourceAsStream("/cinema/images/cinema_logo.png")));
 
             // Configurer la fenêtre en tant que modal
             stage.initModality(Modality.APPLICATION_MODAL);

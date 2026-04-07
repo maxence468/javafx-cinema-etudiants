@@ -21,6 +21,7 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.ListView;
 import javafx.collections.FXCollections;
@@ -35,7 +36,11 @@ public class ModifierSalleController extends MenuController implements Initializ
     @FXML
     private Spinner spNumero, spNbPlace;
 
-    @FXML ListView<Cinema> lvCinema;
+    @FXML 
+    ListView<Cinema> lvCinema;
+
+    @FXML
+    private Label lbFeedback;
 
     private int idSalle;
 
@@ -95,5 +100,14 @@ public class ModifierSalleController extends MenuController implements Initializ
                     Navigation.goTo("/cinema/views/page_liste_salle.fxml", bRetour.getScene().getWindow());
                 }
         }
+        else{
+            afficherErreur();
+        }
+    }
+    
+
+    public void afficherErreur(){
+            lbFeedback.setText("Tous les champs doivent être remplis");
+            lbFeedback.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;");
     }
 }

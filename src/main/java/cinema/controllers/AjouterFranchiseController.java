@@ -17,10 +17,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.scene.paint.Color;
 
 public class AjouterFranchiseController extends MenuController implements Initializable {
 
@@ -30,6 +32,8 @@ public class AjouterFranchiseController extends MenuController implements Initia
     private Button bRetour;
     @FXML
     private ListView<Utilisateur> lvGerantFranchise;
+    @FXML
+    private Label lbFeedback;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -89,16 +93,23 @@ public class AjouterFranchiseController extends MenuController implements Initia
         String siegeSocial = tfSiegeSocial.getText();
 
         Utilisateur gerantSelectionne = lvGerantFranchise.getSelectionModel().getSelectedItem();
-        int idGerant = gerantSelectionne.getIdUtilisateur();
-        Franchise franchise = new Franchise(nomFranchise, siegeSocial, idGerant);
+        if(nomFranchise != null && siegeSocial != null && gerantSelectionne != null && !nomFranchise.trim().isEmpty() && !siegeSocial.trim().isEmpty()){
+            int idGerant = gerantSelectionne.getIdUtilisateur();
+            Franchise franchise = new Franchise(nomFranchise, siegeSocial, idGerant);
 
-        FranchiseDAO franchiseDAO = new FranchiseDAO();
-        boolean controle = franchiseDAO.create(franchise);
-        if (controle) {
-            tfNomFranchise.clear();
-            tfSiegeSocial.clear();
-            lvGerantFranchise.getSelectionModel().clearSelection();
+            FranchiseDAO franchiseDAO = new FranchiseDAO();
+            boolean controle = franchiseDAO.create(franchise);
+            if (controle) {
+                tfNomFranchise.clear();
+                tfSiegeSocial.clear();
+                lvGerantFranchise.getSelectionModel().clearSelection();
+                afficherSuccess();
+            }
         }
+        else{
+            afficherErreur();
+        }
+        
 
     }
 
@@ -109,6 +120,16 @@ public class AjouterFranchiseController extends MenuController implements Initia
         if (tfSiegeSocial != null)
             tfSiegeSocial.clear();
         lvGerantFranchise.getSelectionModel().clearSelection();
+    }
+
+    public void afficherErreur(){
+        lbFeedback.setText("Tous les champs doivent être remplis");
+        lbFeedback.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;");
+    }
+
+    public void afficherSuccess(){
+        lbFeedback.setText("Création de la franchise réussie");
+        lbFeedback.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: green;");
     }
 
 }

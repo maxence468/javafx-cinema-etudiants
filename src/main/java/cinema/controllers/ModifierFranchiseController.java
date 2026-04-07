@@ -17,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
@@ -30,7 +31,9 @@ public class ModifierFranchiseController extends MenuController implements Initi
     private Button bRetour;
     @FXML
     private ListView<Utilisateur> lvGerantFranchise;
-
+    @FXML
+    private Label lbFeedback;
+    
     private int idFranchise;
     private int idGerant;
 
@@ -86,35 +89,10 @@ public class ModifierFranchiseController extends MenuController implements Initi
             boolean controle = franchiseDAO.update(newFranchise);
             if (controle) {
                 Navigation.goTo("/cinema/views/page_liste_franchise.fxml", bRetour.getScene().getWindow());
-                // Stage stageP = (Stage) bRetour.getScene().getWindow();
-                // stageP.close();
-
-                // try {
-
-                //     // Charger le fichier FXML
-                //     FXMLLoader fxmlLoader = new FXMLLoader(
-                //             getClass().getResource("/cinema/views/page_liste_franchise.fxml"));
-                //     Parent root = fxmlLoader.load();
-
-                //     // Obtenir le contrôleur de la nouvelle fenetre
-                //     ListeFranchiseController listeFranchiseController = fxmlLoader.getController();
-                //     listeFranchiseController.setName(nameUti);
-
-                //     // Créer une nouvelle fenêtre (Stage)
-                //     Stage stage = new Stage();
-                //     stage.setTitle("Liste franchises");
-                //     stage.setScene(new Scene(root));
-
-                //     // Configurer la fenêtre en tant que modal
-                //     stage.initModality(Modality.APPLICATION_MODAL);
-
-                //     // Afficher la fenêtre et attendre qu'elle se ferme
-                //     stage.show();
-
-                // } catch (Exception e) {
-                //     e.printStackTrace();
-                // }
             }
+        }
+        else{
+            afficherErreur();
         }
     }
 
@@ -151,4 +129,10 @@ public class ModifierFranchiseController extends MenuController implements Initi
         //     e.printStackTrace();
         // }
     }
+
+    public void afficherErreur(){
+        lbFeedback.setText("Tous les champs doivent être remplis");
+        lbFeedback.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;");
+    }
+
 }

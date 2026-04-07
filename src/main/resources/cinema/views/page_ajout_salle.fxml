@@ -139,6 +139,9 @@
                     GridPane.columnIndex="1" />
 
             </GridPane>
+
+            <Label fx:id="lbFeedback" text="" />
+
         </VBox>
     </center>
 

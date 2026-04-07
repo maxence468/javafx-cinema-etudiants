@@ -21,6 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
@@ -35,11 +36,12 @@ public class AjouterSalleController extends MenuController implements Initializa
     private Button bRetour, bEnregistrer;
     @FXML
     private TextField tfDescription;
-
     @FXML
     private Spinner spNumero, spNbPlace;
-
-    @FXML ListView<Cinema> lvCinema;
+    @FXML 
+    ListView<Cinema> lvCinema;
+    @FXML
+    private Label lbFeedback;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -83,8 +85,12 @@ public class AjouterSalleController extends MenuController implements Initializa
                     tfDescription.clear();
                     spNbPlace.getValueFactory().setValue(0);
                     lvCinema.getSelectionModel().clearSelection();
+                    afficherSuccess();
                 }
-            }
+        }
+        else{
+            afficherErreur();
+        }
 
     }
 
@@ -95,6 +101,16 @@ public class AjouterSalleController extends MenuController implements Initializa
         spNumero.getValueFactory().setValue(0);
         spNbPlace.getValueFactory().setValue(0);
         lvCinema.getSelectionModel().clearSelection();
+    }
+
+    public void afficherErreur(){
+        lbFeedback.setText("Tous les champs doivent être remplis");
+        lbFeedback.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;");
+    }
+
+    public void afficherSuccess(){
+        lbFeedback.setText("Création de la salle réussie");
+        lbFeedback.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: green;");
     }
 
 }

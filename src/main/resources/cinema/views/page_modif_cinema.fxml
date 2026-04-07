@@ -187,6 +187,16 @@
         </HBox>
 
         <HBox alignment="CENTER"
+        layoutY="380.0"
+        prefWidth="729.0"
+        spacing="5.0">
+            <children>
+                <Label fx:id="lbFeedback"
+                    text=""/>
+            </children>
+        </HBox>
+
+        <HBox alignment="CENTER"
             layoutX="-1.0"
             layoutY="375.0"
             prefHeight="100.0"
@@ -199,7 +209,8 @@
                     prefHeight="39.0"
                     prefWidth="200.0"
                     text="ENREGISTRER"
-                    textFill="#024010">
+                    textFill="#024010"
+                    defaultButton="true">
                     <font>
                         <Font name="System Bold" size="18.0" />
                     </font>
@@ -210,7 +221,8 @@
                     prefHeight="39.0"
                     prefWidth="200.0"
                     text="RETOUR"
-                    textFill="#024010">
+                    textFill="#024010"
+                    cancelButton="true">
                     <font>
                         <Font name="System Bold" size="18.0" />
                     </font>
