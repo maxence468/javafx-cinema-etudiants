@@ -109,7 +109,8 @@
                         prefHeight="39.0"
                         prefWidth="200.0"
                         text="RETOUR"
-                        textFill="#024010">
+                        textFill="#024010"
+                        cancelButton="true">
                     <font>
                         <Font name="System Bold" size="18.0" />
                     </font>

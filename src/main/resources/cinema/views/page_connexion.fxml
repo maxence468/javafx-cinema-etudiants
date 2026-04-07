@@ -111,7 +111,8 @@
                                 mnemonicParsing="false"
                                 onAction="#bConnexionClick"
                                 text="Connexion"
-                                textFill="#024010">
+                                textFill="#024010"
+                                defaultButton="true">
                             <font>
                                 <Font size="17.0" />
                             </font>

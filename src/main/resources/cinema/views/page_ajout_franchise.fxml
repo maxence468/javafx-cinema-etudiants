@@ -141,7 +141,8 @@
             <Button fx:id="bRetour"
                 text="Retour"
                 onAction="#bRetourClick"
-                styleClass="action-button" />
+                styleClass="action-button"
+                cancelButton="true" />
 
             <Button fx:id="bEffacer"
                 text="Effacer"
@@ -151,7 +152,8 @@
             <Button fx:id="bEnregistrer"
                 text="Enregistrer"
                 onAction="#bEnregistrerClick"
-                styleClass="action-button" />
+                styleClass="action-button"
+                defaultButton="true" />
         </HBox>
     </bottom>
 </BorderPane>
