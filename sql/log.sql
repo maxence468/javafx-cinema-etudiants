@@ -13,7 +13,7 @@ OR REPLACE FUNCTION insert_log_function(
     p_operation VARCHAR,
     p_ancienContenu TEXT,
     p_nouveauContenu TEXT
-) RETURNS void LANGUAGE plpgsql AS $ $ BEGIN
+) RETURNS void LANGUAGE plpgsql AS $$ BEGIN
 INSERT INTO
     log(
         tableName,
@@ -30,185 +30,113 @@ VALUES
     );
 
 END;
+$$;
 
-$ $;
-
--- SECTION --
--- INSERT
+-- FRANCHISE -- 
+select * from franchise f;
+-- INSERT -- 
 CREATE
-OR REPLACE FUNCTION trigger_section_create() RETURNS TRIGGER AS $ $ BEGIN PERFORM insert_log_function(
-    'section',
+OR REPLACE FUNCTION trigger_franchise_insert() RETURNS TRIGGER AS $$ BEGIN PERFORM insert_log_function(
+    'franchise',
     'INSERT',
     '',
-    'ID: ' || NEW.idSection || ', Libelle: ' || NEW.libelleSection
+    'ID: ' || NEW.id_franchise || ', Nom Franchise: ' || NEW.nom_franchise || ', Siege Social: ' || new.siege_social || ', ID Gerant: ' || new.id_gerant
 );
 
 RETURN NEW;
-
 END;
+$$ LANGUAGE plpgsql;
 
-$ $ LANGUAGE plpgsql;
-
-CREATE TRIGGER section_create
+CREATE TRIGGER franchise_insert
 AFTER
 INSERT
-    ON Section FOR EACH ROW EXECUTE FUNCTION trigger_section_create();
+    ON franchise FOR EACH ROW EXECUTE FUNCTION trigger_franchise_insert();
 
--- UPDATE
+-- UPDATE -- 
 CREATE
-OR REPLACE FUNCTION trigger_section_update() RETURNS TRIGGER AS $ $ BEGIN PERFORM insert_log_function(
-    'section',
+OR REPLACE FUNCTION trigger_franchise_update() RETURNS TRIGGER AS $$ BEGIN PERFORM insert_log_function(
+    'franchise',
     'UPDATE',
-    'ID: ' || OLD.idSection || ', Libelle: ' || OLD.libelleSection,
-    'ID: ' || NEW.idSection || ', Libelle: ' || NEW.libelleSection
+    'ID: ' || OLD.id_franchise || ', Nom Franchise: ' || OLD.nom_franchise  || ', Siege Social: ' || OLD.siege_social || ', ID Gerant: ' || OLD.id_gerant,
+    'ID: ' || NEW.id_franchise || ', Nom Franchise: ' || NEW.nom_franchise  || ', Siege Social: ' || new.siege_social || ', ID Gerant: ' || new.id_gerant
 );
-
 RETURN NEW;
-
 END;
+$$ LANGUAGE plpgsql;
 
-$ $ LANGUAGE plpgsql;
-
-CREATE TRIGGER section_update
+CREATE TRIGGER franchise_update
 AFTER
 UPDATE
-    ON Section FOR EACH ROW EXECUTE FUNCTION trigger_section_update();
+    ON franchise FOR EACH ROW EXECUTE FUNCTION trigger_franchise_update();
 
--- DELETE
+-- DELETE --
 CREATE
-OR REPLACE FUNCTION trigger_section_delete() RETURNS TRIGGER AS $ $ BEGIN PERFORM insert_log_function(
-    'section',
+OR REPLACE FUNCTION trigger_franchise_delete() RETURNS TRIGGER AS $$ BEGIN PERFORM insert_log_function(
+    'franchise',
     'DELETE',
-    'ID: ' || OLD.idSection || ', Libelle: ' || OLD.libelleSection,
+    'ID: ' || OLD.id_franchise || ', Nom Franchise: ' || OLD.nom_franchise  || ', Siege Social: ' || OLD.siege_social || ', ID Gerant: ' || OLD.id_gerant,
     ''
 );
-
 RETURN OLD;
-
 END;
+$$ LANGUAGE plpgsql;
 
-$ $ LANGUAGE plpgsql;
-
-CREATE TRIGGER section_delete
+CREATE TRIGGER franchise_delete
 AFTER
-    DELETE ON Section FOR EACH ROW EXECUTE FUNCTION trigger_section_delete();
+    DELETE ON franchise FOR EACH ROW EXECUTE FUNCTION trigger_franchise_delete();
 
--- COURS -- 
--- INSERT
+
+-- CINEMA --
+select * from cinema c;
+-- INSERT --
 CREATE
-OR REPLACE FUNCTION trigger_cours_create() RETURNS TRIGGER AS $ $ BEGIN PERFORM insert_log_function(
-    'cours',
+OR REPLACE FUNCTION trigger_cinema_insert() RETURNS TRIGGER AS $$ BEGIN PERFORM insert_log_function(
+    'cinema',
     'INSERT',
     '',
-    'ID: ' || NEW.idCours || ', Libelle: ' || NEW.libelleCours || ', Description: ' || NEW.DescriptionCours || ', IDSection: ' || NEW.idSection
+    'ID: ' || NEW.id_cinema || ', Denomination: ' || NEW.denomination || ', Adresse: ' || new.adresse || ', Ville: ' || new.ville || ', ID Franchise' || new.id_franchise
 );
 
 RETURN NEW;
-
 END;
+$$ LANGUAGE plpgsql;
 
-$ $ LANGUAGE plpgsql;
-
-CREATE TRIGGER cours_create
+CREATE TRIGGER cinema_insert
 AFTER
 INSERT
-    ON cours FOR EACH ROW EXECUTE FUNCTION trigger_cours_create();
+    ON cinema FOR EACH ROW EXECUTE FUNCTION trigger_cinema_insert();
 
--- UPDATE
+-- UPDATE -- 
 CREATE
-OR REPLACE FUNCTION trigger_cours_update() RETURNS TRIGGER AS $ $ BEGIN PERFORM insert_log_function(
-    'cours',
+OR REPLACE FUNCTION trigger_cinema_update() RETURNS TRIGGER AS $$ BEGIN PERFORM insert_log_function(
+    'cinema',
     'UPDATE',
-    'ID: ' || OLD.idCours || ', Libelle: ' || OLD.libelleCours || ', Description: ' || OLD.DescriptionCours || ', IDSection: ' || OLD.idSection,
-    'ID: ' || NEW.idCours || ', Libelle: ' || NEW.libelleCours || ', Description: ' || NEW.DescriptionCours || ', IDSection: ' || NEW.idSection
+    'ID: ' || OLD.id_cinema || ', Denomination: ' || OLD.denomination || ', Adresse: ' || OLD.adresse || ', Ville: ' || OLD.ville || ', ID Franchise' || OLD.id_franchise,
+    'ID: ' || NEW.id_cinema || ', Denomination: ' || NEW.denomination || ', Adresse: ' || new.adresse || ', Ville: ' || new.ville || ', ID Franchise' || new.id_franchise
 );
-
 RETURN NEW;
-
 END;
+$$ LANGUAGE plpgsql;
 
-$ $ LANGUAGE plpgsql;
-
-CREATE TRIGGER cours_update
+CREATE TRIGGER cinema_update
 AFTER
 UPDATE
-    ON cours FOR EACH ROW EXECUTE FUNCTION trigger_cours_update();
+    ON cinema FOR EACH ROW EXECUTE FUNCTION trigger_cinema_update();
 
--- DELETE
+-- DELETE --
 CREATE
-OR REPLACE FUNCTION trigger_cours_delete() RETURNS TRIGGER AS $ $ BEGIN PERFORM insert_log_function(
-    'cours',
+OR REPLACE FUNCTION trigger_cinema_delete() RETURNS TRIGGER AS $$ BEGIN PERFORM insert_log_function(
+    'cinema',
     'DELETE',
-    'ID: ' || OLD.idCours || ', Libelle: ' || OLD.libelleCours || ', Description: ' || OLD.DescriptionCours || ', IDSection: ' || OLD.idSection,
+    'ID: ' || OLD.id_cinema || ', Denomination: ' || OLD.denomination || ', Adresse: ' || OLD.adresse || ', Ville: ' || OLD.ville || ', ID Franchise' || OLD.id_franchise,
     ''
 );
-
 RETURN OLD;
-
 END;
+$$ LANGUAGE plpgsql;
 
-$ $ LANGUAGE plpgsql;
-
-CREATE TRIGGER cours_delete
+CREATE TRIGGER cinema_delete
 AFTER
-    DELETE ON cours FOR EACH ROW EXECUTE FUNCTION trigger_cours_delete();
+    DELETE ON cinema FOR EACH ROW EXECUTE FUNCTION trigger_cinema_delete();
 
--- ETUDIANT --
--- INSERT
-CREATE
-OR REPLACE FUNCTION trigger_etudiant_create() RETURNS TRIGGER AS $ $ BEGIN PERFORM insert_log_function(
-    'etudiant',
-    'INSERT',
-    '',
-    'ID: ' || NEW.idEtudiant || ', Nom: ' || NEW.nomEtudiant || ', Prenom: ' || NEW.prenomEtudiant || ', IDSection: ' || NEW.idSection
-);
-
-RETURN NEW;
-
-END;
-
-$ $ LANGUAGE plpgsql;
-
-CREATE TRIGGER etudiant_create
-AFTER
-INSERT
-    ON etudiant FOR EACH ROW EXECUTE FUNCTION trigger_etudiant_create();
-
--- UPDATE
-CREATE
-OR REPLACE FUNCTION trigger_etudiant_update() RETURNS TRIGGER AS $ $ BEGIN PERFORM insert_log_function(
-    'etudiant',
-    'UPDATE',
-    'ID: ' || OLD.idEtudiant || ', Nom: ' || OLD.nomEtudiant || ', Prenom: ' || OLD.prenomEtudiant || ', IDSection: ' || OLD.idSection,
-    'ID: ' || NEW.idEtudiant || ', Nom: ' || NEW.nomEtudiant || ', Prenom: ' || NEW.prenomEtudiant || ', IDSection: ' || NEW.idSection
-);
-
-RETURN NEW;
-
-END;
-
-$ $ LANGUAGE plpgsql;
-
-CREATE TRIGGER etudiant_update
-AFTER
-UPDATE
-    ON etudiant FOR EACH ROW EXECUTE FUNCTION trigger_etudiant_update();
-
--- DELETE
-CREATE
-OR REPLACE FUNCTION trigger_etudiant_delete() RETURNS TRIGGER AS $ $ BEGIN PERFORM insert_log_function(
-    'etudiant',
-    'DELETE',
-    'ID: ' || OLD.idEtudiant || ', Nom: ' || OLD.nomEtudiant || ', Prenom: ' || OLD.prenomEtudiant || ', IDSection: ' || OLD.idSection,
-    ''
-);
-
-RETURN OLD;
-
-END;
-
-$ $ LANGUAGE plpgsql;
-
-CREATE TRIGGER etudiant_delete
-AFTER
-    DELETE ON etudiant FOR EACH ROW EXECUTE FUNCTION trigger_etudiant_delete();
+select * from log l ;
