@@ -40,9 +40,9 @@ public class AjouterCinemaController extends MenuController implements Initializ
     public void initialize(URL location, ResourceBundle resources) {
         ObservableList<Franchise> franchises = getFranchiseList();
         lvFranchise.setItems(franchises);
-
     }
 
+    //methode pour recuperer toutes les franchises dans une liste observable
     private ObservableList<Franchise> getFranchiseList() {
 
         FranchiseDAO franchiseDAO = new FranchiseDAO();
@@ -64,12 +64,14 @@ public class AjouterCinemaController extends MenuController implements Initializ
         String adresse = tfAdresse.getText();
         String ville = tfVille.getText();
         Franchise selected = lvFranchise.getSelectionModel().getSelectedItem();
+        //verifie que tous les champs soient remplis 
         if (denomination != null && adresse != null && ville != null && selected != null 
             && !denomination.trim().isEmpty() && !adresse.trim().isEmpty() && !ville.trim().isEmpty()){
                 int idFranchise = selected.getIdFranchise();
                 Cinema cinema = new Cinema(denomination, adresse, ville, idFranchise);
 
                 CinemaDAO cinemaDAO = new CinemaDAO();
+                //si la création reussit la methode renvoie true 
                 boolean controle = cinemaDAO.create(cinema);
                 if(controle){
                     tfDenomination.clear();
@@ -85,6 +87,7 @@ public class AjouterCinemaController extends MenuController implements Initializ
 
     }
 
+    //reinitialise les champs du formulaire
     @FXML
     public void bEffacerClick(ActionEvent event) {
         if (tfDenomination != null)
@@ -96,11 +99,12 @@ public class AjouterCinemaController extends MenuController implements Initializ
         lvFranchise.getSelectionModel().clearSelection();
     }
 
+    //affiche un message d'erreur en rouge
     public void afficherErreur(){
         lbFeedback.setText("Tous les champs doivent être remplis");
         lbFeedback.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;");
     }
-
+    //affiche un message de validation en vert
     public void afficherSuccess(){
         lbFeedback.setText("Création du cinéma réussie");
         lbFeedback.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: green;");

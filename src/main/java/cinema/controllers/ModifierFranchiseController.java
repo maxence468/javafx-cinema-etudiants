@@ -41,24 +41,25 @@ public class ModifierFranchiseController extends MenuController implements Initi
     public void initialize(URL location, ResourceBundle resources) {
         ObservableList<Utilisateur> utilisateurs = getUtilisateurList();
         lvGerantFranchise.setItems(utilisateurs);
-
+        
+        //recupere la franchise à modifier
         Franchise franchise = Navigation.getParam("franchise");
+        
         tfNomFranchise.setText(franchise.getNomFranchise());
         tfSiegeSocial.setText(franchise.getSiegeSocial());
-
+        
+        //Selectionne le gerant de la franchise
         for (Utilisateur gerant : lvGerantFranchise.getItems()) {
             if (gerant.getIdUtilisateur() == franchise.getIdGerant()) {
                 lvGerantFranchise.getSelectionModel().select(gerant);
                 break;
             }
         }
-        //lvGerantFranchise.getSelectionModel().select(franchise.getIdGerant() - 1);
-
         this.idFranchise = franchise.getIdFranchise();
     }
 
+    //methode pour recuperer tous les utilisateurs dans une liste observable
     private ObservableList<Utilisateur> getUtilisateurList() {
-
         UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
         List<Utilisateur> utilisateurs = utilisateurDAO.findAll();
 
@@ -66,14 +67,7 @@ public class ModifierFranchiseController extends MenuController implements Initi
         return list;
     }
 
-    public void setAttributes(Franchise franchise) {
-        tfNomFranchise.setText(franchise.getNomFranchise());
-        tfSiegeSocial.setText(franchise.getSiegeSocial());
-        lvGerantFranchise.getSelectionModel().select(franchise.getIdGerant() - 1);
-        this.idGerant = franchise.getIdGerant();
-        this.idFranchise = franchise.getIdFranchise();
-    }
-
+    //verifie si les données sont valides et enregistre les modifications
     @FXML
     private void bEnregistrerClick(ActionEvent event) {
         String nom = tfNomFranchise.getText();
@@ -96,40 +90,13 @@ public class ModifierFranchiseController extends MenuController implements Initi
         }
     }
 
+    //retourne à la page precedente
     @FXML
     private void bRetourClick(ActionEvent event) {
         Navigation.goBack(bRetour.getScene().getWindow());
-
-        // Stage stageP = (Stage) bRetour.getScene().getWindow();
-        // stageP.close();
-
-        // try {
-
-        //     // Charger le fichier FXML
-        //     FXMLLoader fxmlLoader = new FXMLLoader(
-        //             getClass().getResource("/cinema/views/page_liste_franchise.fxml"));
-        //     Parent root = fxmlLoader.load();
-
-        //     // Obtenir le contrôleur de la nouvelle fenetre
-        //     ListeFranchiseController listeFranchiseController = fxmlLoader.getController();
-        //     listeFranchiseController.setName(nameUti);
-
-        //     // Créer une nouvelle fenêtre (Stage)
-        //     Stage stage = new Stage();
-        //     stage.setTitle("Liste franchises");
-        //     stage.setScene(new Scene(root));
-
-        //     // Configurer la fenêtre en tant que modal
-        //     stage.initModality(Modality.APPLICATION_MODAL);
-
-        //     // Afficher la fenêtre et attendre qu'elle se ferme
-        //     stage.show();
-
-        // } catch (Exception e) {
-        //     e.printStackTrace();
-        // }
     }
 
+    //affiche un message d'erreur en rouge
     public void afficherErreur(){
         lbFeedback.setText("Tous les champs doivent être remplis");
         lbFeedback.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;");

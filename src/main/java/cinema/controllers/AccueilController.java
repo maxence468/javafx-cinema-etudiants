@@ -14,7 +14,9 @@ public class AccueilController extends MenuController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        //recupere le parametre nameUti de connexionController : user.getNom()
         String nameUti = Navigation.getParam("nameUti");
+        //definit le texte du label bienvenue
         bienvenue.setText("BONJOUR " + nameUti.toUpperCase());
     }
 }

@@ -43,6 +43,7 @@ public class AjouterFranchiseController extends MenuController implements Initia
         lvGerantFranchise.setItems(utilisateurs);
     }
 
+    //methode pour recuperer tous les utilisateurs dans une liste observable
     private ObservableList<Utilisateur> getUtilisateurList() {
 
         UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
@@ -55,35 +56,6 @@ public class AjouterFranchiseController extends MenuController implements Initia
     @FXML
     public void bRetourClick(ActionEvent event) {
         Navigation.goBack(bRetour.getScene().getWindow());
-
-        // // On fait le lien avec l'ecran actuel
-        // Stage stageP = (Stage) bRetour.getScene().getWindow();
-        // // on ferme l'écran
-        // stageP.close();
-
-        // try {
-        //     FXMLLoader fxmlLoader = new FXMLLoader(
-        //             getClass().getResource("/cinema/views/page_accueil.fxml"));
-        //     Parent root = fxmlLoader.load();
-
-        //     AccueilController accueilController = fxmlLoader.getController();
-        //     accueilController.setName(nameUti);
-        //     accueilController.setBienvenue();
-
-        //     // Créer une nouvelle fenêtre (Stage)
-        //     Stage stage = new Stage();
-        //     stage.setTitle("Liste franchises");
-        //     stage.setScene(new Scene(root));
-
-        //     // Configurer la fenêtre en tant que modal
-        //     stage.initModality(Modality.APPLICATION_MODAL);
-
-        //     // Afficher la fenêtre et attendre qu'elle se ferme
-        //     stage.show();
-        // } catch (Exception e) {
-        //     e.printStackTrace();
-        // }
-
     }
 
     @FXML
@@ -93,11 +65,13 @@ public class AjouterFranchiseController extends MenuController implements Initia
         String siegeSocial = tfSiegeSocial.getText();
 
         Utilisateur gerantSelectionne = lvGerantFranchise.getSelectionModel().getSelectedItem();
+        //verifie que tous les champs soient remplis
         if(nomFranchise != null && siegeSocial != null && gerantSelectionne != null && !nomFranchise.trim().isEmpty() && !siegeSocial.trim().isEmpty()){
             int idGerant = gerantSelectionne.getIdUtilisateur();
             Franchise franchise = new Franchise(nomFranchise, siegeSocial, idGerant);
 
             FranchiseDAO franchiseDAO = new FranchiseDAO();
+            //si la création reussit la methode renvoie true 
             boolean controle = franchiseDAO.create(franchise);
             if (controle) {
                 tfNomFranchise.clear();
@@ -113,6 +87,7 @@ public class AjouterFranchiseController extends MenuController implements Initia
 
     }
 
+    //reinitialise les champs du formulaire
     @FXML
     public void bEffacerClick(ActionEvent event) {
         if (tfNomFranchise != null)
@@ -122,11 +97,13 @@ public class AjouterFranchiseController extends MenuController implements Initia
         lvGerantFranchise.getSelectionModel().clearSelection();
     }
 
+    //affiche un message d'erreur en rouge
     public void afficherErreur(){
         lbFeedback.setText("Tous les champs doivent être remplis");
         lbFeedback.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;");
     }
 
+    //affiche un message de validation en vert
     public void afficherSuccess(){
         lbFeedback.setText("Création de la franchise réussie");
         lbFeedback.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: green;");

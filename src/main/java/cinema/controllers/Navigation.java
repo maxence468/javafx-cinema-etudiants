@@ -53,10 +53,12 @@ public class Navigation {
 
     public static void goTo(String fxmlPath, Window currentWindow) {
         try {
+            //ajoute la page à l'historique si elle est différente de la précédente
             if (historique.isEmpty() || !historique.peek().equals(fxmlPath)) {
                 historique.push(fxmlPath);
             }
 
+            //charge le fichier FXML et change la scène principale
             Parent root = FXMLLoader.load(Navigation.class.getResource(fxmlPath));
             Stage newStage = new Stage();
             newStage.setScene(new Scene(root));
@@ -82,6 +84,7 @@ public class Navigation {
         goTo(fxmlPath, currentWindow);
     }
 
+    //permet de revenir à la page précédente en utilisant l'historique
     public static void goBack(Window currentWindow) {
         if (historique.size() >= 2) {
             historique.pop();
@@ -94,18 +97,22 @@ public class Navigation {
         historique.clear();
     }
 
+    //enregistre un parametre dans une Map 
     public static void setParam(String key, Object value) {
         params.put(key, value);
     }
 
+    //recupere un parametre avec sa clé
     public static <T> T getParam(String key) {
         return (T) params.get(key);
     }
 
+    //supprime tous les parametres
     public static void clearParams() {
         params.clear();
     }
 
+    //supprime un parametre à partir de sa clé
     public static void removeParam(String key){
         params.remove(key);
     }

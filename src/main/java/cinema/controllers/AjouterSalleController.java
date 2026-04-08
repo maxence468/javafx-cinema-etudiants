@@ -53,6 +53,7 @@ public class AjouterSalleController extends MenuController implements Initializa
 
     }
 
+    //methode pour recuperer tous les cinémas dans une liste observable
     private ObservableList<Cinema> getCinemaList() {
 
         CinemaDAO cinemaDAO = new CinemaDAO();
@@ -73,12 +74,13 @@ public class AjouterSalleController extends MenuController implements Initializa
         String description = tfDescription.getText();
         Integer nbPlace = (Integer) spNbPlace.getValue();
         Cinema selected = lvCinema.getSelectionModel().getSelectedItem();
+        //verifie que tous les champs soient remplis
         if (numero != null && description != null && nbPlace != null && selected != null 
              && !description.trim().isEmpty()){
                 int idCinema = selected.getIdCinema();
                 Salle salle = new Salle(numero, description, nbPlace, idCinema);
-
                 SalleDAO salleDAO = new SalleDAO();
+                //si la création reussit la methode renvoie true 
                 boolean controle = salleDAO.create(salle);
                 if(controle){
                     spNumero.getValueFactory().setValue(0);
@@ -94,6 +96,7 @@ public class AjouterSalleController extends MenuController implements Initializa
 
     }
 
+    //reinitialise les champs du formulaire
     @FXML
     public void bEffacerClick(ActionEvent event) {
         if (tfDescription != null)
@@ -103,11 +106,13 @@ public class AjouterSalleController extends MenuController implements Initializa
         lvCinema.getSelectionModel().clearSelection();
     }
 
+    //affiche un message d'erreur en rouge
     public void afficherErreur(){
         lbFeedback.setText("Tous les champs doivent être remplis");
         lbFeedback.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;");
     }
 
+    //affiche un message de validation en vert
     public void afficherSuccess(){
         lbFeedback.setText("Création de la salle réussie");
         lbFeedback.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: green;");

@@ -52,12 +52,14 @@ public class ModifierSalleController extends MenuController implements Initializ
         ObservableList<Cinema> cinemas = getCinemaList();
         lvCinema.setItems(cinemas);
 
+        //recupere la salle à modifier
         Salle salle = Navigation.getParam("salle");
 
         spNumero.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, salle.getNumero()));
         tfDescription.setText(salle.getDescription());
         spNbPlace.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 500, salle.getNbPlace()));
         
+        //Selectionne le cinéma de la salle
         for (Cinema cinema : lvCinema.getItems()) {
             if (cinema.getIdCinema() == salle.getIdCinema()) {
                 lvCinema.getSelectionModel().select(cinema);
@@ -69,6 +71,7 @@ public class ModifierSalleController extends MenuController implements Initializ
 
     }
 
+    //methode pour recuperer tous les cinémas dans une liste observable
     private ObservableList<Cinema> getCinemaList() {
 
         CinemaDAO cinemaDAO = new CinemaDAO();
@@ -78,11 +81,13 @@ public class ModifierSalleController extends MenuController implements Initializ
         return list;
     }
 
+    //retourne à la page precedente
     @FXML
     private void bRetourClick(ActionEvent event) {
         Navigation.goBack(bRetour.getScene().getWindow());
     }
 
+    //verifie si les données sont valides et enregistre les modifications
     @FXML
     private void bEnregistrerClick(ActionEvent event) {
         Integer numero = (Integer) spNumero.getValue();
@@ -105,7 +110,7 @@ public class ModifierSalleController extends MenuController implements Initializ
         }
     }
     
-
+    //affiche un message d'erreur en rouge
     public void afficherErreur(){
             lbFeedback.setText("Tous les champs doivent être remplis");
             lbFeedback.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;");

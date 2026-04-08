@@ -28,7 +28,6 @@ public class ModifierCinemaController extends MenuController implements Initiali
 
     @FXML
     private TextField tfDenomination, tfAdresse, tfVille;
-    //private TextArea taLibSec;
     @FXML 
     ListView<Franchise> lvFranchise;
     @FXML
@@ -44,24 +43,25 @@ public class ModifierCinemaController extends MenuController implements Initiali
         ObservableList<Franchise> franchises = getFranchiseList();
         lvFranchise.setItems(franchises);
 
+        //recupere le cinéma à modifier
         Cinema cinema = Navigation.getParam("cinema");
 
         tfDenomination.setText(cinema.getDenomination());
         tfAdresse.setText(cinema.getAdresse());
         tfVille.setText(cinema.getVille());
 
+        //Selectionne la franchise du cinéma
         for (Franchise franchise : lvFranchise.getItems()) {
             if (franchise.getIdFranchise() == cinema.getIdFranchise()) {
                 lvFranchise.getSelectionModel().select(franchise);
                 break;
             }
         }
-        //lvFranchise.getSelectionModel().select(cinema.getIdFranchise() - 1);
-
         this.idCinema = cinema.getIdCinema();
 
     }
 
+    //methode pour recuperer toutes les franchises dans une liste observable
     private ObservableList<Franchise> getFranchiseList() {
 
         FranchiseDAO franchiseDAO = new FranchiseDAO();
@@ -71,41 +71,13 @@ public class ModifierCinemaController extends MenuController implements Initiali
         return list;
     }
 
-
-    // public void setAttrinuts() {
-    //     CinemaDAO sectionDAO = new CinemaDAO();
-    //     Cinema sec = sectionDAO.find(idSec);
-    //     taLibSec.setText(sec.getDenomination());
-    // }
-
+    //retourne à la page precedente
     @FXML
     private void bRetourClick(ActionEvent event) {
         Navigation.goBack(bRetour.getScene().getWindow());
-
-        // Stage stageP = (Stage) bRetour.getScene().getWindow();
-        // stageP.close();
-        // try {
-
-        //     FXMLLoader fxmlLoader = new FXMLLoader(
-        //             getClass().getResource("/cinema/views/page_liste_cinema.fxml"));
-        //     Parent root = fxmlLoader.load();
-
-        //     ListeCinemaController listeCinemaController = fxmlLoader.getController();
-        //     listeCinemaController.setName(nameUti);
-
-        //     Stage stage = new Stage();
-        //     stage.setTitle("Liste franchises");
-        //     stage.setScene(new Scene(root));
-
-        //     stage.initModality(Modality.APPLICATION_MODAL);
-
-        //     stage.show();
-
-        // } catch (Exception e) {
-        //     e.printStackTrace();
-        // }
     }
 
+    //verifie si les données sont valides et enregistre les modifications
     @FXML
     private void bEnregistrerClick(ActionEvent event) {
         String denomination = tfDenomination.getText();
@@ -128,6 +100,7 @@ public class ModifierCinemaController extends MenuController implements Initiali
         }
     }
 
+    //affiche un message d'erreur en rouge
     public void afficherErreur(){
             lbFeedback.setText("Tous les champs doivent être remplis");
             lbFeedback.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;");

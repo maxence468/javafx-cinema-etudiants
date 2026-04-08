@@ -36,10 +36,18 @@ public class ConnexionController implements Initializable {
     public void bConnexionClick(ActionEvent event) {
         String login = tfLogin.getText();
         String mdp = tfMDP.getText();
+        
+        //si un des champs est vide, affiche la fenetre d'erreur
+        if(login == null || login.trim().isEmpty() ||
+            mdp == null || mdp.trim().isEmpty()){
+            showError();
+            return;
+        }
+        
 
         UtilisateurDAO userDAO = new UtilisateurDAO();
-        // TODO
         Utilisateur user = userDAO.authenticate(login, mdp);
+        //verifie si l'utilisateur a été trouvé 
         if(user != null){
             showAccueil(user.getNom());
         }
@@ -48,48 +56,15 @@ public class ConnexionController implements Initializable {
         }
     }
 
+    //affiche la page d'accueil
     private void showAccueil(String name) {
-        //accueilController.setName(name);
         Navigation.setParam("nameUti", name);
         Navigation.goTo("/cinema/views/page_accueil.fxml", bConnexion.getScene().getWindow());
-
-        /*
-        Stage stageP = (Stage) bConnexion.getScene().getWindow();
-        // on ferme l'écran
-        stageP.close();
-        try {
-
-            // Charger le fichier FXML pour la pop-up
-            FXMLLoader fxmlLoader = new FXMLLoader(
-                    getClass().getResource("/cinema/views/page_accueil.fxml"));
-            Parent root = fxmlLoader.load();
-
-            // Obtenir le contrôleur de la nouvelle fenetre
-            AccueilController accueilController = fxmlLoader.getController();
-            accueilController.setName(name);
-            accueilController.setBienvenue();
-
-            // Créer une nouvelle fenêtre (Stage)
-            Stage stage = new Stage();
-            stage.setTitle("Accueil Gestion de franchises");
-            stage.setScene(new Scene(root));
-            stage.getIcons().add(new Image("/cinema/images/cinema_32x32.png"));
-            // Configurer la fenêtre en tant que modal
-            stage.initModality(Modality.APPLICATION_MODAL);
-
-            // Afficher la fenêtre et attendre qu'elle se ferme
-            stage.show();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        */
-
     }
 
+    //affiche une fenetre d'erreur
     @FXML
     private void showError() {
-
         try {
             // Charger le fichier FXML pour la pop-up
             FXMLLoader fxmlLoader = new FXMLLoader(

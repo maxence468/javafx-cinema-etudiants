@@ -50,6 +50,7 @@ public class ListeCinemaController extends MenuController implements Initializab
         btnVoirPlus();
     }
 
+    //methode pour recuperer tous les cinémas dans une liste observable
     private ObservableList<Cinema> getCinema() {
 
         CinemaDAO cinemaDAO = new CinemaDAO();
@@ -57,62 +58,22 @@ public class ListeCinemaController extends MenuController implements Initializab
         ObservableList<Cinema> list = FXCollections.observableArrayList(mesCinemas);
         return list;
     }
-
+    
+    //retourne à la page precedente
     public void bRetourClick(ActionEvent actionEvent) {
         Navigation.goBack(bRetour.getScene().getWindow());
-
-        // Stage stageP = (Stage) bRetour.getScene().getWindow();
-        // stageP.close();
-
-        // try {
-        //     FXMLLoader fxmlLoader = new FXMLLoader(
-        //             getClass().getResource("/cinema/views/page_accueil.fxml"));
-        //     Parent root = fxmlLoader.load();
-
-        //     AccueilController accueilController = fxmlLoader.getController();
-        //     accueilController.setName(nameUti);
-        //     accueilController.setBienvenue();
-
-        //     // Créer une nouvelle fenêtre (Stage)
-        //     Stage stage = new Stage();
-        //     stage.setTitle("Liste franchises");
-        //     stage.setScene(new Scene(root));
-
-        //     // Configurer la fenêtre en tant que modal
-        //     stage.initModality(Modality.APPLICATION_MODAL);
-
-        //     // Afficher la fenêtre et attendre qu'elle se ferme
-        //     stage.show();
-        // } catch (Exception e) {
-        //     e.printStackTrace();
-        // }
     }
 
+    
     private void btnModif() {
         tcModif.setCellFactory(column -> new TableCell<Cinema, Void>() {
+            //crée un bouton dans chaque cellule de la colonne
             private Button btn = new Button("Modifier");
             {
+                //methode à d'action du bouton pour rediriger sur la page de modification
                 btn.setOnAction(event -> {
                     Cinema cinema = getTableView().getItems().get(getIndex());
                     Navigation.goTo("/cinema/views/page_modif_cinema.fxml", "cinema", cinema, bRetour.getScene().getWindow());
-                    // Stage stageP = (Stage) bRetour.getScene().getWindow();
-                    // stageP.close();
-
-                    // try {
-                    //     FXMLLoader fxmlLoader = new FXMLLoader(
-                    //             getClass().getResource("/cinema/views/page_modif_cinema.fxml"));
-                    //     Parent root = fxmlLoader.load();
-
-                    //     Stage stage = new Stage();
-                    //     stage.setTitle("Modification cinema");
-                    //     stage.setScene(new Scene(root));
-
-                    //     stage.initModality(Modality.APPLICATION_MODAL);
-
-                    //     stage.show();
-                    // } catch (Exception e) {
-                    //     e.printStackTrace();
-                    // }
                 });
             }
 
@@ -124,16 +85,17 @@ public class ListeCinemaController extends MenuController implements Initializab
         });
     }
 
+    //methode pour ajouter un bouton permettant de supprimer un cinéma 
     private void btnSupp() {
         tcSupp.setCellFactory(col -> new TableCell<Cinema, Void>() {
             private Button btn = new Button("Supprimer");
             {
                 btn.setOnAction(event -> {
+                    //supprime le cinéma de la table et de la BDD
                     Cinema cinema = getTableView().getItems().get(getIndex());
                     tvCinema.getItems().remove(cinema);
                     CinemaDAO cinemaDAO = new CinemaDAO();
                     cinemaDAO.delete(cinema);
-                    
                 });
             }
 
@@ -145,6 +107,7 @@ public class ListeCinemaController extends MenuController implements Initializab
         });
     }
 
+    //methode qui redirige sur la liste des salles associées au cinéma selectionné
     private void btnVoirPlus(){
         tcVp.setCellFactory(col -> new TableCell<Cinema, Void>() {
             private Button btn = new Button("Voir Les Salles");
@@ -152,6 +115,7 @@ public class ListeCinemaController extends MenuController implements Initializab
                 btn.setOnAction(event -> {
                     Cinema cinema = getTableView().getItems().get(getIndex());
                     int idCinema = cinema.getIdCinema(); 
+                    //enregistre l'id du cinéma pour filtrer les salles
                     Navigation.setParam("idCinema", idCinema);
                     Navigation.goTo("/cinema/views/page_liste_salle.fxml", bRetour.getScene().getWindow());
                 });

@@ -53,6 +53,7 @@ public class ListeSalleController extends MenuController implements Initializabl
         btnSupp();
     }
 
+    //methode pour recuperer toutes les salles dans une liste observable
     private ObservableList<Salle> getSalle() {
         SalleDAO salleDAO = new SalleDAO();
         List<Salle> mesSalles = salleDAO.findAll();
@@ -66,10 +67,12 @@ public class ListeSalleController extends MenuController implements Initializabl
         return list;
     }
 
+    //retourne à la page precedente
     public void bRetourClick(ActionEvent actionEvent) {
         Navigation.goBack(bRetour.getScene().getWindow());
     }
 
+    //methode pour ajouter un bouton permettant de modifier une salle
     private void btnModif() {
         tcModif.setCellFactory(column -> new TableCell<Salle, Void>() {
             private Button btn = new Button("Modifier");
@@ -88,6 +91,7 @@ public class ListeSalleController extends MenuController implements Initializabl
         });
     }
 
+    //methode pour ajouter un bouton permettant de supprimer une salle
     private void btnSupp() {
         tcSupp.setCellFactory(col -> new TableCell<Salle, Void>() {
             private Button btn = new Button("Supprimer");
