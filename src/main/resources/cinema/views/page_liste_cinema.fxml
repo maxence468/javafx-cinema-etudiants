@@ -34,7 +34,7 @@
                             <graphic>
                                 <ImageView fitHeight="16" fitWidth="16">
                                     <image>
-                                        <Image url="@../images/franchise_64x64.png" />
+                                        <Image url="@../images/franchise_32x32.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
