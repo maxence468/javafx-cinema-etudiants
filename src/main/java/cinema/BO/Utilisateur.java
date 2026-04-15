@@ -11,6 +11,14 @@ public class Utilisateur {
     public Utilisateur() {
     }
 
+    public Utilisateur(int idUtilisateur, String nom, String prenom, String login) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.login = login;
+        this.idUtilisateur = idUtilisateur;
+    }
+
+
     public Utilisateur(int idUtilisateur, String nom, String prenom, String login, String mdp) {
         this.nom = nom;
         this.prenom = prenom;
