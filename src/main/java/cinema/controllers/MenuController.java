@@ -17,7 +17,9 @@ public class MenuController {
     @FXML
     protected MenuItem bListeFranchise, bAjouterFranchise, bListeCinema, bAjouterCinema, bQuitter, bAccueil,
             bListeSalle,
-            bAjouterSalle;
+            bAjouterSalle,
+            bInfoPerso,
+            bMdp;
 
     protected String nameUti;
 
@@ -66,6 +68,18 @@ public class MenuController {
 
     @FXML
     public void bAjouterSalleClick(ActionEvent event) {
+        Window window = ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
+        Navigation.goTo("/cinema/views/page_ajout_salle.fxml", window);
+    }
+
+    @FXML
+    public void bInfoPerso(ActionEvent event){
+        Window window = ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
+        Navigation.goTo("/cinema/views/page_modif_info_perso.fxml", window);
+    }
+
+    @FXML
+    public void bMdp(ActionEvent event){
         Window window = ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
         Navigation.goTo("/cinema/views/page_ajout_salle.fxml", window);
     }

@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import org.mindrot.jbcrypt.BCrypt;
 
 import cinema.BO.Utilisateur;
 
@@ -51,11 +52,12 @@ public class UtilisateurDAO extends DAO<Utilisateur> {
     public boolean update(Utilisateur obj) {
         boolean result = false;
         try {
-            String sql = "UPDATE Utilisateur SET login=?, mdp=? WHERE id_utilisateur = ?";
+            String sql = "UPDATE Utilisateur SET nom=?, prenom=?, login=? WHERE id_utilisateur = ?";
             PreparedStatement ps = this.connect.prepareStatement(sql);
-            ps.setString(1, obj.getLogin());
-            ps.setString(2, obj.getMdp());
-            ps.setInt(3, obj.getIdUtilisateur());
+            ps.setString(1, obj.getNom());
+            ps.setString(2, obj.getPrenom());
+            ps.setString(3, obj.getLogin());
+            ps.setInt(4, obj.getIdUtilisateur());
             int rowsUpdated = ps.executeUpdate();
             if (rowsUpdated > 0) {
                 result = true;
@@ -70,8 +72,7 @@ public class UtilisateurDAO extends DAO<Utilisateur> {
         return new Utilisateur(resultSet.getInt("id_utilisateur"),
                 resultSet.getString("nom"),
                 resultSet.getString("prenom"),
-                resultSet.getString("login"),
-                resultSet.getString("mdp"));
+                resultSet.getString("login"));
     }
 
     @Override
@@ -113,19 +114,26 @@ public class UtilisateurDAO extends DAO<Utilisateur> {
     }
 
     public Utilisateur authenticate(String login, String password) {
-        Utilisateur user = null;
-        try {
-            String sql = "SELECT * FROM utilisateur WHERE login =? AND mdp=?";
-            PreparedStatement ps = this.connect.prepareStatement(sql);
-            ps.setString(1, login);
-            ps.setString(2, password);
-            ResultSet result = ps.executeQuery();
-            if (result.next()) {
+    Utilisateur user = null;
+    try {
+        String sql = "SELECT * FROM utilisateur WHERE login = ?";
+        PreparedStatement ps = this.connect.prepareStatement(sql);
+        ps.setString(1, login);
+        ResultSet result = ps.executeQuery();
+        if (result.next()) {
+            String mdpHash = result.getString("mdp");
+
+            if (BCrypt.checkpw(password, mdpHash)) {
                 user = hydrate(result);
             }
-        } catch (SQLException e) {
-            return null;
         }
-        return user;
+    } catch (SQLException e) {
+        return null;
     }
+    //System.out.println(BCrypt.hashpw("alice", BCrypt.gensalt()));
+    //System.out.println(BCrypt.hashpw("lucas", BCrypt.gensalt()));
+    //System.out.println(BCrypt.hashpw("jean", BCrypt.gensalt()));
+
+    return user;
+}
 }

@@ -47,9 +47,10 @@ public class ConnexionController implements Initializable {
 
         UtilisateurDAO userDAO = new UtilisateurDAO();
         Utilisateur user = userDAO.authenticate(login, mdp);
+        Navigation.setParam("idUser", user.getIdUtilisateur());
         //verifie si l'utilisateur a été trouvé 
         if(user != null){
-            showAccueil(user.getNom());
+            showAccueil();
         }
         else{
             showError();
@@ -57,8 +58,7 @@ public class ConnexionController implements Initializable {
     }
 
     //affiche la page d'accueil
-    private void showAccueil(String name) {
-        Navigation.setParam("nameUti", name);
+    private void showAccueil() {
         Navigation.goTo("/cinema/views/page_accueil.fxml", bConnexion.getScene().getWindow());
     }
 
