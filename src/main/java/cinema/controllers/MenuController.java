@@ -81,6 +81,6 @@ public class MenuController {
     @FXML
     public void bMdp(ActionEvent event){
         Window window = ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
-        Navigation.goTo("/cinema/views/page_ajout_salle.fxml", window);
+        Navigation.goTo("/cinema/views/page_modif_mdp.fxml", window);
     }
 }

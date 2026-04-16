@@ -68,6 +68,42 @@ public class UtilisateurDAO extends DAO<Utilisateur> {
         return result;
     }
 
+    public boolean updateMdp(Utilisateur obj){
+        boolean result = false;
+        try{
+            String sql = "UPDATE Utilisateur SET mdp=? WHERE id_utilisateur=?;";
+            PreparedStatement ps = this.connect.prepareStatement(sql);
+            
+            String mdp = obj.getMdp();
+            String hash = BCrypt.hashpw(mdp, BCrypt.gensalt());
+
+            ps.setString(1, hash);
+            ps.setInt(2, obj.getIdUtilisateur());
+            int rowsUpdated = ps.executeUpdate();
+            if(rowsUpdated > 0){
+                result = true;
+            } 
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public String getMdpBylogin(String login){
+        try{
+            String sql = "SELECT mdp FROM Utilisateur WHERE login=?;";
+            PreparedStatement ps = this.connect.prepareStatement(sql);
+            ps.setString(1, login);
+            ResultSet result = ps.executeQuery();
+            if(result.next()){
+                return result.getString("mdp");
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     private Utilisateur hydrate(ResultSet resultSet) throws SQLException {
         return new Utilisateur(resultSet.getInt("id_utilisateur"),
                 resultSet.getString("nom"),
