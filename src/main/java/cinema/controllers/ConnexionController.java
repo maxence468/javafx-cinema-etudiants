@@ -47,9 +47,9 @@ public class ConnexionController implements Initializable {
 
         UtilisateurDAO userDAO = new UtilisateurDAO();
         Utilisateur user = userDAO.authenticate(login, mdp);
-        Navigation.setParam("idUser", user.getIdUtilisateur());
         //verifie si l'utilisateur a été trouvé 
         if(user != null){
+            Navigation.setParam("idUser", user.getIdUtilisateur());
             showAccueil();
         }
         else{
