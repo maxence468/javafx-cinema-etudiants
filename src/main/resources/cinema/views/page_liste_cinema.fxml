@@ -82,6 +82,19 @@
                                 <MenuItem fx:id="bQuitter" mnemonicParsing="false" onAction="#bQuitterClick" text="Quitter" />
                             </items>
                         </Menu>
+                        <Menu fx:id="bUtilisateur" mnemonicParsing="false" text="Gestion de l'utilisateur">
+                            <graphic>
+                                <ImageView fitWidth="16" fitHeight="16">
+                                    <image>
+                                        <Image url="@../images/user.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <items>
+                                <MenuItem fx:id="bInfoPerso" mnemonicParsing="false" onAction="#bInfoPerso" text="Modifier informations personnelles" />
+                                <MenuItem fx:id="bMdp" mnemonicParsing="false" onAction="#bMdp" text="Modifier mot de passe" />
+                            </items>
+                        </Menu>
                     </menus>
                 </MenuBar>
             </children>
