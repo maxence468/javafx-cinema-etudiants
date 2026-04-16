@@ -22,6 +22,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 public class ModifierInfoPersoController extends MenuController implements Initializable {
 
@@ -56,6 +58,12 @@ public class ModifierInfoPersoController extends MenuController implements Initi
 
         if (nom != null && prenom != null && login != null && !nom.trim().isEmpty()
                 && !prenom.trim().isEmpty() && !login.trim().isEmpty()) {
+
+            if(!validateMail(login)){
+                erreurMailIncorrect();
+                return;
+            }
+
             Utilisateur newUser = new Utilisateur(this.idUser, nom, prenom, login);
 
             UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
@@ -67,6 +75,13 @@ public class ModifierInfoPersoController extends MenuController implements Initi
         else{
             afficherErreur();
         }
+    }
+
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+
+    public static boolean validateMail(String emailStr) {
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
+        return matcher.matches();
     }
 
     //retourne à la page precedente
@@ -85,6 +100,11 @@ public class ModifierInfoPersoController extends MenuController implements Initi
     public void afficherSuccess(){
         lbFeedback.setText("Informations modifiées avec succès");
         lbFeedback.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: green;");
+    }
+
+    public void erreurMailIncorrect(){
+        lbFeedback.setText("L'email est invalide (format attendu : mail@exemple.com)");
+        lbFeedback.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;");
     }
 
 }
