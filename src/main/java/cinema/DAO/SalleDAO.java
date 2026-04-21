@@ -88,6 +88,29 @@ public class SalleDAO extends DAO<Salle> {
         return salle;
     }
 
+    public List<Salle> findByIdCinema(int id){
+        List<Salle> salles = new ArrayList<Salle>();
+        String query = "SELECT * FROM salle s inner join cinema c on c.id_cinema = s.id_cinema WHERE c.id_cinema = ?;";
+
+        try{
+            PreparedStatement preparedStatement = this.connect.prepareStatement(query);
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Salle salle = new Salle(
+                        resultSet.getInt("numero"),
+                        resultSet.getString("description"),
+                        resultSet.getInt("nb_places"),
+                        resultSet.getInt("id_cinema"));
+                salles.add(salle);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return salles;
+    }
+
     @Override
     public List<Salle> findAll() {
         List<Salle> salles = new ArrayList<Salle>();

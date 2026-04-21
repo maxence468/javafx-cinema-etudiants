@@ -22,6 +22,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.scene.image.Image;
 
 public class ListeCinemaController extends MenuController implements Initializable {
 
@@ -91,11 +92,35 @@ public class ListeCinemaController extends MenuController implements Initializab
             private Button btn = new Button("Supprimer");
             {
                 btn.setOnAction(event -> {
-                    //supprime le cinéma de la table et de la BDD
                     Cinema cinema = getTableView().getItems().get(getIndex());
-                    tvCinema.getItems().remove(cinema);
-                    CinemaDAO cinemaDAO = new CinemaDAO();
-                    cinemaDAO.delete(cinema);
+
+                    try {
+                        // Charger le fichier FXML pour la pop-up
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/cinema/views/popupSuppressionCinema.fxml"));
+                        Parent root = fxmlLoader.load();
+
+                        // Obtenir le contrôleur de la pop-up
+                        SuppressionCinemaController supprController = fxmlLoader.getController();
+
+                        // Passer le cinema et la liste au contrôleur de la pop-up
+                        supprController.setCinema(cinema, tvCinema);
+
+                        // Créer une nouvelle fenêtre (Stage)
+                        Stage stage = new Stage();
+                        stage.setTitle("Validation suppression");
+                        stage.setScene(new Scene(root));
+                        stage.getIcons().add(new Image(Navigation.class.getResourceAsStream("/cinema/images/cinema_logo.png")));
+                        stage.setResizable(false);
+
+                        // Configurer la fenêtre en tant que modal
+                        stage.initModality(Modality.APPLICATION_MODAL);
+
+                        // Afficher la fenêtre et attendre qu'elle se ferme
+                        stage.showAndWait();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 });
             }
 

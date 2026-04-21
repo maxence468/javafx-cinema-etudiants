@@ -13,7 +13,7 @@
            prefWidth="560.0"
            xmlns="http://javafx.com/javafx/22"
            xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="cinema.controllers.SuppressionFranchiseController">
+           fx:controller="cinema.controllers.SuppressionCinemaController">
 
    
     <!-- Contenu principal -->
@@ -30,8 +30,8 @@
             </font>
         </Text>
 
-        <!--liste des cinemas qui seront supprimés -->
-        <Text fx:id="tCinemas" fill="#0c7422" text="" textAlignment="CENTER" wrappingWidth="480.0">
+        <!--liste des salles qui seront supprimés -->
+        <Text fx:id="tSalles" fill="#0c7422" text="" textAlignment="CENTER" wrappingWidth="480.0">
             <font>
                 <Font name="Franklin Gothic Medium" size="22.0" />
             </font>
