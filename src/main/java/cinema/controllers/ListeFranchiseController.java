@@ -12,6 +12,7 @@ import cinema.BO.Utilisateur;
 import cinema.DAO.FranchiseDAO;
 import cinema.DAO.CinemaDAO;
 import cinema.DAO.UtilisateurDAO;
+import cinema.DAO.FranchiseDAO;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,6 +28,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.scene.image.Image;
 
 public class ListeFranchiseController extends MenuController implements Initializable {
     @FXML
@@ -125,9 +127,36 @@ public class ListeFranchiseController extends MenuController implements Initiali
             {
                 btn.setOnAction(event -> {
                     Franchise franchise = getTableView().getItems().get(getIndex());
-                    tvFranchises.getItems().remove(franchise);
-                    FranchiseDAO franchiseDAO = new FranchiseDAO();
-                    franchiseDAO.delete(franchise);
+
+                    try {
+                        // Charger le fichier FXML pour la pop-up
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/cinema/views/popupSuppressionFranchise.fxml"));
+                        Parent root = fxmlLoader.load();
+
+                        // Obtenir le contrôleur de la pop-up
+                        SuppressionFranchiseController supprController = fxmlLoader.getController();
+
+                        // Passer la franchise et la liste au contrôleur de la pop-up
+                        supprController.setFranchise(franchise, tvFranchises);
+
+                        // Créer une nouvelle fenêtre (Stage)
+                        Stage stage = new Stage();
+                        stage.setTitle("Validation suppression");
+                        stage.setScene(new Scene(root));
+                        stage.getIcons().add(new Image(Navigation.class.getResourceAsStream("/cinema/images/cinema_logo.png")));
+                        stage.setResizable(false);
+
+                        // Configurer la fenêtre en tant que modal
+                        stage.initModality(Modality.APPLICATION_MODAL);
+
+                        // Afficher la fenêtre et attendre qu'elle se ferme
+                        stage.showAndWait();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    
                 });
             }
 
