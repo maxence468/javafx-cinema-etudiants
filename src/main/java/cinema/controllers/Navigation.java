@@ -145,20 +145,22 @@ public class Navigation {
     // Méthode qui associe un titre à chaque page
     private static String getTitre(String fxmlPath) {
         switch (fxmlPath) {
-            case "/cinema/views/page_accueil.fxml":         return "Accueil Gestion de franchises";
-            case "/cinema/views/page_connexion.fxml":       return "Connexion";
-            case "/cinema/views/page_liste_franchise.fxml": return "Liste des franchises";
-            case "/cinema/views/page_ajout_franchise.fxml": return "Ajouter une franchise";
-            case "/cinema/views/page_modif_franchise.fxml": return "Modifier une franchise";
-            case "/cinema/views/page_modif_cinema.fxml": return "Modifier un cinéma";
-            case "/cinema/views/page_liste_cinema.fxml":    return "Liste des cinémas";
-            case "/cinema/views/page_ajout_cinema.fxml":    return "Ajouter un cinéma";
-            case "/cinema/views/page_liste_salle.fxml":     return "Liste des salles";
-            case "/cinema/views/page_ajout_salle.fxml":     return "Ajouter une salle";
-            case "/cinema/views/page_modif_salle.fxml": return "Modifier une salle";
-            case "/cinema/views/page_ajout_cinema_popup.fxml": return "Popup Ajouter un cinéma";
-            case "/cinema/views/page_ajout_franchise_popup.fxml": return "Popup Ajouter franchise";
-            default: return "Gestion de franchises";
+            case "/cinema/views/page_accueil.fxml":                 return "Accueil Gestion de franchises";
+            case "/cinema/views/page_connexion.fxml":               return "Connexion";
+            case "/cinema/views/page_liste_franchise.fxml":         return "Liste des franchises";
+            case "/cinema/views/page_ajout_franchise.fxml":         return "Ajouter une franchise";
+            case "/cinema/views/page_modif_franchise.fxml":         return "Modifier une franchise";
+            case "/cinema/views/page_modif_cinema.fxml":            return "Modifier un cinéma";
+            case "/cinema/views/page_liste_cinema.fxml":            return "Liste des cinémas";
+            case "/cinema/views/page_ajout_cinema.fxml":            return "Ajouter un cinéma";
+            case "/cinema/views/page_liste_salle.fxml":             return "Liste des salles";
+            case "/cinema/views/page_ajout_salle.fxml":             return "Ajouter une salle";
+            case "/cinema/views/page_modif_salle.fxml":             return "Modifier une salle";
+            case "/cinema/views/page_ajout_cinema_popup.fxml":      return "Popup Ajouter un cinéma";
+            case "/cinema/views/page_ajout_franchise_popup.fxml":   return "Popup Ajouter franchise";
+            case "/cinema/views/page_modif_info_perso.fxml":        return "Modifier informations personnelles";
+            case "/cinema/views/page_modif_mdp.fxml":               return "Modifier mot de passe";
+            default:                                                return "Gestion de franchises";
     }
 }
 }
