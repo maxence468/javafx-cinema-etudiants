@@ -7,7 +7,6 @@ public class Cinema {
     private String adresse;
     private String ville;
     private int idFranchise;
-    private String nom_franchise;
 
     public Cinema(int idCinema, String denomination, String adresse, String ville, int idFranchise) {
         this.idCinema = idCinema;
@@ -26,14 +25,6 @@ public class Cinema {
 
     public int getIdCinema() {
         return idCinema;
-    }
-
-    public String getNomFranchise() {
-        return nom_franchise;
-    }
-
-    public void setNomFranchise(String nom_franchise) {
-        this.nom_franchise = nom_franchise;
     }
 
     public String getDenomination() {

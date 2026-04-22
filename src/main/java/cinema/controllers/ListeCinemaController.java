@@ -3,8 +3,11 @@ package cinema.controllers;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+import java.util.Map;
 
 import cinema.BO.Cinema;
+import cinema.BO.Franchise;
 import cinema.DAO.CinemaDAO;
 import cinema.DAO.FranchiseDAO;
 import javafx.collections.FXCollections;
@@ -23,6 +26,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
+import javafx.beans.property.SimpleStringProperty;
 
 public class ListeCinemaController extends MenuController implements Initializable {
 
@@ -40,9 +44,21 @@ public class ListeCinemaController extends MenuController implements Initializab
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        FranchiseDAO franchiseDAO = new FranchiseDAO();
+        //permet de retrouver rapidement un gérant par son id
+        Map<Integer, Franchise> franchises = franchiseDAO.findAll()
+                .stream()
+                .collect(Collectors.toMap(Franchise::getIdFranchise, u -> u));
+
+        //pour chaque ligne du tableau, récupère le gérant depuis la Map via idGerant
+        tcFranchise.setCellValueFactory(cellData -> {
+            Franchise franchise = franchises.get(cellData.getValue().getIdFranchise());
+            return new SimpleStringProperty(
+                    franchise != null ? franchise.getNomFranchise() : "Aucune franchise");
+        });
+
 
         tcDenomination.setCellValueFactory(new PropertyValueFactory<>("denomination"));
-        tcFranchise.setCellValueFactory(new PropertyValueFactory<>("nomFranchise"));
         tcAdresse.setCellValueFactory(new PropertyValueFactory<>("adresse"));
         tcVille.setCellValueFactory(new PropertyValueFactory<>("ville"));   
         ObservableList<Cinema> data = getCinema();
