@@ -2,6 +2,8 @@ package cinema.controllers;
 
 import java.net.URL;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import cinema.BO.Cinema;
@@ -23,6 +25,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.stage.Stage;
 
 public class ListeSalleController extends MenuController implements Initializable {
@@ -41,10 +44,21 @@ public class ListeSalleController extends MenuController implements Initializabl
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        CinemaDAO cinemaDAO = new CinemaDAO();
+        Map<Integer, Cinema> cinemas = cinemaDAO.findAll()
+                .stream()
+                .collect(Collectors.toMap(Cinema::getIdCinema, u -> u));
+
+        //pour chaque ligne du tableau, récupère le cinéma depuis la Map via idCinema
+        tcDenominationDuCinema.setCellValueFactory(cellData -> {
+            Cinema cinema = cinemas.get(cellData.getValue().getIdCinema());
+            return new SimpleStringProperty(
+                    cinema != null ? cinema.getDenomination() : "Aucun cinéma");
+        });
+
         tcNumero.setCellValueFactory(new PropertyValueFactory<>("numero"));
         tcDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
         tcNbPlace.setCellValueFactory(new PropertyValueFactory<>("nbPlace"));
-        tcDenominationDuCinema.setCellValueFactory(new PropertyValueFactory<>("denomination"));
         
         ObservableList<Salle> data = getSalle();
         tvSalle.setItems(data);

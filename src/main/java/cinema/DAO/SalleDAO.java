@@ -114,7 +114,7 @@ public class SalleDAO extends DAO<Salle> {
     @Override
     public List<Salle> findAll() {
         List<Salle> salles = new ArrayList<Salle>();
-        String query = "SELECT * FROM salle s inner join cinema c on s.id_cinema = c.id_cinema;";
+        String query = "SELECT * FROM salle;";
 
         try (PreparedStatement preparedStatement = this.connect.prepareStatement(query);
                 ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -126,15 +126,11 @@ public class SalleDAO extends DAO<Salle> {
                         resultSet.getString("description"),
                         resultSet.getInt("nb_places"),
                         resultSet.getInt("id_cinema"));
-                        
-                        salle.setDenomination(resultSet.getString("denomination"));
-
                 salles.add(salle);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return salles;
     }
 

@@ -8,8 +8,6 @@ public class Salle{
     private int nbPlace;
     private int idCinema;
 
-    private String denomination;
-
     public Salle(int numero, String description, int nbPlace, int idCinema){
         this.numero = numero;
         this.description = description;
@@ -23,14 +21,6 @@ public class Salle{
         this.description = description;
         this.nbPlace = nbPlace;
         this.idCinema = idCinema;
-    }
-
-    public String getDenomination(){
-        return denomination;
-    }
-
-    public void setDenomination(String denomination){
-        this.denomination = denomination;
     }
 
     public int getIdSalle() {
