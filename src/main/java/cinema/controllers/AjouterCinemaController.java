@@ -30,7 +30,7 @@ public class AjouterCinemaController extends MenuController implements Initializ
     @FXML
     private TextField tfDenomination, tfAdresse, tfVille;
     @FXML
-    private Button bRetour, bEnregistrer;
+    private Button bRetour, bEnregistrer, bAjtFranchise;
     @FXML
     private ListView<Franchise> lvFranchise;
     @FXML
@@ -97,6 +97,12 @@ public class AjouterCinemaController extends MenuController implements Initializ
         if (tfVille != null)
             tfVille.clear();
         lvFranchise.getSelectionModel().clearSelection();
+    }
+
+    @FXML
+    public void bAjtFranchiseClick(ActionEvent event){
+        Navigation.openPopUp("/cinema/views/page_ajout_franchise_popup.fxml");
+        lvFranchise.setItems(getFranchiseList());
     }
 
     //affiche un message d'erreur en rouge

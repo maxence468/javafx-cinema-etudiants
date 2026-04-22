@@ -150,6 +150,11 @@
 
             </GridPane>
 
+            <Button
+                fx:id="bAjtFranchise"
+                text="Ajouter une franchise"
+                onAction="#bAjtFranchiseClick" />
+
             <Label fx:id="lbFeedback" text="" />
 
         </VBox>

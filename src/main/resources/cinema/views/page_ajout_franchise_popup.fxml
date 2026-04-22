@@ -8,7 +8,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/22"
     xmlns:fx="http://javafx.com/fxml/1"
-    fx:controller="cinema.controllers.AjouterCinemaController"
+    fx:controller="cinema.controllers.AjouterFranchiseController"
     stylesheets="@./css/main.css">
 
     <center>
@@ -17,7 +17,7 @@
                 <Insets top="30" right="40" bottom="30" left="40" />
             </padding>
 
-            <Label text="AJOUT D'UN NOUVEAU CINEMA"
+            <Label text="AJOUT D'UNE NOUVELLE FRANCHISE"
                 styleClass="title-label" />
 
             <GridPane hgap="15" vgap="20" alignment="CENTER">
@@ -27,45 +27,32 @@
                     <ColumnConstraints hgrow="ALWAYS" />
                 </columnConstraints>
 
-                <Label text="Denomination :" styleClass="form-label"
+                <Label text="Nom :" styleClass="form-label"
                     GridPane.rowIndex="0"
                     GridPane.columnIndex="0" />
 
-                <TextField fx:id="tfDenomination"
+                <TextField fx:id="tfNomFranchise"
                     GridPane.rowIndex="0"
                     GridPane.columnIndex="1" />
 
-                <Label text="Adresse du cinéma :" styleClass="form-label"
+                <Label text="Adresse du siège social :" styleClass="form-label"
                     GridPane.rowIndex="1"
                     GridPane.columnIndex="0" />
 
-                <TextField fx:id="tfAdresse"
+                <TextField fx:id="tfSiegeSocial"
                     GridPane.rowIndex="1"
                     GridPane.columnIndex="1" />
 
-                <Label text="Ville du cinéma :" styleClass="form-label"
+                <Label text="Gérant :" styleClass="form-label"
                     GridPane.rowIndex="2"
                     GridPane.columnIndex="0" />
 
-                <TextField fx:id="tfVille"
-                    GridPane.rowIndex="2"
-                    GridPane.columnIndex="1" />
-
-                <Label text="Franchise :" styleClass="form-label"
-                    GridPane.rowIndex="3"
-                    GridPane.columnIndex="0" />
-
-                <ListView fx:id="lvFranchise"
+                <ListView fx:id="lvGerantFranchise"
                     prefHeight="120"
-                    GridPane.rowIndex="3"
+                    GridPane.rowIndex="2"
                     GridPane.columnIndex="1" />
-
+                
             </GridPane>
-
-            <Button
-                fx:id="bAjtFranchise"
-                text="Ajouter une franchise"
-                onAction="#bAjtFranchiseClick" />
 
             <Label fx:id="lbFeedback" text="" />
 
