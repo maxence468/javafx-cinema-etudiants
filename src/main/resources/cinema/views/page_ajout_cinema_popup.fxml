@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/22"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="cinema.controllers.AjouterCinemaController"
+    stylesheets="@./css/main.css">
+
+    <center>
+        <VBox spacing="25" alignment="TOP_CENTER" styleClass="content">
+            <padding>
+                <Insets top="30" right="40" bottom="30" left="40" />
+            </padding>
+
+            <Label text="AJOUT D'UN NOUVEAU CINEMA"
+                styleClass="title-label" />
+
+            <GridPane hgap="15" vgap="20" alignment="CENTER">
+
+                <columnConstraints>
+                    <ColumnConstraints halignment="RIGHT" />
+                    <ColumnConstraints hgrow="ALWAYS" />
+                </columnConstraints>
+
+                <Label text="Denomination :" styleClass="form-label"
+                    GridPane.rowIndex="0"
+                    GridPane.columnIndex="0" />
+
+                <TextField fx:id="tfDenomination"
+                    GridPane.rowIndex="0"
+                    GridPane.columnIndex="1" />
+
+                <Label text="Adresse du cinéma :" styleClass="form-label"
+                    GridPane.rowIndex="1"
+                    GridPane.columnIndex="0" />
+
+                <TextField fx:id="tfAdresse"
+                    GridPane.rowIndex="1"
+                    GridPane.columnIndex="1" />
+
+                <Label text="Ville du cinéma :" styleClass="form-label"
+                    GridPane.rowIndex="2"
+                    GridPane.columnIndex="0" />
+
+                <TextField fx:id="tfVille"
+                    GridPane.rowIndex="2"
+                    GridPane.columnIndex="1" />
+
+                <Label text="Franchise :" styleClass="form-label"
+                    GridPane.rowIndex="3"
+                    GridPane.columnIndex="0" />
+
+                <ListView fx:id="lvFranchise"
+                    prefHeight="120"
+                    GridPane.rowIndex="3"
+                    GridPane.columnIndex="1" />
+
+            </GridPane>
+
+            <Label fx:id="lbFeedback" text="" />
+
+        </VBox>
+    </center>
+
+    <bottom>
+        <HBox spacing="20" alignment="CENTER" styleClass="button-bar">
+            <padding>
+                <Insets top="15" bottom="20" />
+            </padding>
+
+            <!-- <Button fx:id="bRetour"
+                text="Retour"
+                onAction="#bRetourClick"
+                styleClass="action-button"
+                cancelButton="true" /> -->
+
+            <Button fx:id="bEffacer"
+                text="Effacer"
+                onAction="#bEffacerClick"
+                styleClass="action-button" />
+
+            <Button fx:id="bEnregistrer"
+                text="Enregistrer"
+                onAction="#bEnregistrerClick"
+                styleClass="action-button"
+                defaultButton="true" />
+        </HBox>
+    </bottom>
+</BorderPane>

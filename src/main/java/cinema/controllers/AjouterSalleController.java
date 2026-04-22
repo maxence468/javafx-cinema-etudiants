@@ -33,7 +33,7 @@ import javafx.scene.control.Spinner;
 public class AjouterSalleController extends MenuController implements Initializable {
 
     @FXML
-    private Button bRetour, bEnregistrer;
+    private Button bRetour, bEnregistrer, bAjtCinema;
     @FXML
     private TextField tfDescription;
     @FXML
@@ -104,6 +104,12 @@ public class AjouterSalleController extends MenuController implements Initializa
         spNumero.getValueFactory().setValue(0);
         spNbPlace.getValueFactory().setValue(0);
         lvCinema.getSelectionModel().clearSelection();
+    }
+
+    @FXML
+    public void bAjtCinemaClick(ActionEvent event){
+        Navigation.openPopUp("/cinema/views/page_ajout_cinema_popup.fxml");
+        lvCinema.setItems(getCinemaList());
     }
 
     //affiche un message d'erreur en rouge

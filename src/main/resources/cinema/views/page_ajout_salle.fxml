@@ -152,6 +152,11 @@
 
             </GridPane>
 
+            <Button
+                fx:id="bAjtCinema"
+                text="Ajouter un cinéma"
+                onAction="#bAjtCinemaClick" />
+
             <Label fx:id="lbFeedback" text="" />
 
         </VBox>

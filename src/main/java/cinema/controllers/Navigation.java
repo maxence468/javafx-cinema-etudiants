@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.stage.Modality;
 
 public class Navigation {
 
@@ -93,6 +94,30 @@ public class Navigation {
         }
     }
 
+    public static void openPopUp(String fxmlPath){
+        try {
+            // Charger le fichier FXML pour la pop-up
+            FXMLLoader fxmlLoader = new FXMLLoader(Navigation.class.getResource(fxmlPath));
+            Parent root = fxmlLoader.load();
+
+            // Créer une nouvelle fenêtre (Stage)
+            Stage stage = new Stage();
+            stage.setTitle(getTitre(fxmlPath));
+            stage.setScene(new Scene(root));
+            stage.getIcons().add(new Image(Navigation.class.getResourceAsStream("/cinema/images/cinema_logo.png")));
+            stage.setResizable(false);
+
+            // Configurer la fenêtre en tant que modal
+            stage.initModality(Modality.APPLICATION_MODAL);
+
+            // Afficher la fenêtre et attendre qu'elle se ferme
+            stage.showAndWait();
+            
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+    }
+
     public static void clearHistory() {
         historique.clear();
     }
@@ -131,6 +156,7 @@ public class Navigation {
             case "/cinema/views/page_liste_salle.fxml":     return "Liste des salles";
             case "/cinema/views/page_ajout_salle.fxml":     return "Ajouter une salle";
             case "/cinema/views/page_modif_salle.fxml": return "Modifier une salle";
+            case "/cinema/views/page_ajout_cinema_popup.fxml": return "Ajouter un cinéma popup";
             default: return "Gestion de franchises";
     }
 }
