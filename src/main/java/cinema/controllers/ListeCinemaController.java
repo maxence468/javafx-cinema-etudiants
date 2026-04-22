@@ -30,7 +30,7 @@ public class ListeCinemaController extends MenuController implements Initializab
     private TableView<Cinema> tvCinema;
 
     @FXML
-    private TableColumn<Cinema, String> tcDenomination, tcFranchise;
+    private TableColumn<Cinema, String> tcDenomination, tcFranchise, tcAdresse, tcVille;
 
     @FXML
     private TableColumn<Cinema, Void> tcModif, tcSupp, tcVp;
@@ -43,6 +43,8 @@ public class ListeCinemaController extends MenuController implements Initializab
 
         tcDenomination.setCellValueFactory(new PropertyValueFactory<>("denomination"));
         tcFranchise.setCellValueFactory(new PropertyValueFactory<>("nomFranchise"));
+        tcAdresse.setCellValueFactory(new PropertyValueFactory<>("adresse"));
+        tcVille.setCellValueFactory(new PropertyValueFactory<>("ville"));   
         ObservableList<Cinema> data = getCinema();
         tvCinema.setItems(data);
 
