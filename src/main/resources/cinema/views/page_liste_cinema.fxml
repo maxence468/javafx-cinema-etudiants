@@ -105,8 +105,8 @@
             <columns>
                 <TableColumn fx:id="tcDenomination" prefWidth="180.0" text="Dénomination" />
                 <TableColumn fx:id="tcAdresse" prefWidth="180.0" text="Adresse" />
-                <TableColumn fx:id="tcVille" prefWidth="120.0" text="Ville" />
-                <TableColumn fx:id="tcFranchise" prefWidth="130.0" text="Franchise" />
+                <TableColumn fx:id="tcVille" prefWidth="100.0" text="Ville" />
+                <TableColumn fx:id="tcFranchise" prefWidth="110.0" text="Franchise" />
                 <TableColumn fx:id="tcVp" prefWidth="64.0" text="Voir plus" />
                 <TableColumn fx:id="tcModif" prefWidth="65.0" text="Modifier" />
                 <TableColumn fx:id="tcSupp" prefWidth="65.0" text="Supprimer" />

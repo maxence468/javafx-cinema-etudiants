@@ -26,7 +26,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.geometry.Pos;
+import javafx.scene.layout.StackPane;
 
 public class ListeSalleController extends MenuController implements Initializable {
 
@@ -89,8 +93,12 @@ public class ListeSalleController extends MenuController implements Initializabl
     //methode pour ajouter un bouton permettant de modifier une salle
     private void btnModif() {
         tcModif.setCellFactory(column -> new TableCell<Salle, Void>() {
-            private Button btn = new Button("Modifier");
+            private Button btn = new Button("");
             {
+                final Image image = new Image(getClass().getResource("/cinema/images/edit_16x16.png").toExternalForm()); 
+                final ImageView icon = new ImageView(image); 
+                btn.setGraphic(icon);
+
                 btn.setOnAction(event -> {
                     Salle salle = getTableView().getItems().get(getIndex());
                     Navigation.goTo("/cinema/views/page_modif_salle.fxml", "salle", salle, bRetour.getScene().getWindow());
@@ -100,7 +108,13 @@ public class ListeSalleController extends MenuController implements Initializabl
             @Override
             protected void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
-                setGraphic(empty ? null : btn);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    StackPane pane = new StackPane(btn);
+                    pane.setAlignment(Pos.CENTER); // centre parfaitement
+                    setGraphic(pane);
+                }
             }
         });
     }
@@ -108,8 +122,12 @@ public class ListeSalleController extends MenuController implements Initializabl
     //methode pour ajouter un bouton permettant de supprimer une salle
     private void btnSupp() {
         tcSupp.setCellFactory(col -> new TableCell<Salle, Void>() {
-            private Button btn = new Button("Supprimer");
+            private Button btn = new Button("");
             {
+                final Image image = new Image(getClass().getResource("/cinema/images/delete_16x16.png").toExternalForm()); 
+                final ImageView icon = new ImageView(image); 
+                btn.setGraphic(icon);
+
                 btn.setOnAction(event -> {
                     Salle salle = getTableView().getItems().get(getIndex());
                     tvSalle.getItems().remove(salle);
@@ -122,7 +140,13 @@ public class ListeSalleController extends MenuController implements Initializabl
             @Override
             protected void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
-                setGraphic(empty ? null : btn);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    StackPane pane = new StackPane(btn);
+                    pane.setAlignment(Pos.CENTER); // centre parfaitement
+                    setGraphic(pane);
+                }
             }
         });
     }

@@ -26,7 +26,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.control.ContentDisplay;
+import javafx.geometry.Pos;
+import javafx.scene.layout.StackPane;
 
 public class ListeCinemaController extends MenuController implements Initializable {
 
@@ -87,8 +93,11 @@ public class ListeCinemaController extends MenuController implements Initializab
     private void btnModif() {
         tcModif.setCellFactory(column -> new TableCell<Cinema, Void>() {
             //crée un bouton dans chaque cellule de la colonne
-            private Button btn = new Button("Modifier");
+            private Button btn = new Button("");
             {
+                final Image image = new Image(getClass().getResource("/cinema/images/edit_16x16.png").toExternalForm()); 
+                final ImageView icon = new ImageView(image); 
+                btn.setGraphic(icon);
                 //methode à d'action du bouton pour rediriger sur la page de modification
                 btn.setOnAction(event -> {
                     Cinema cinema = getTableView().getItems().get(getIndex());
@@ -99,7 +108,13 @@ public class ListeCinemaController extends MenuController implements Initializab
             @Override
             protected void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
-                setGraphic(empty ? null : btn);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    StackPane pane = new StackPane(btn);
+                    pane.setAlignment(Pos.CENTER); // centre parfaitement
+                    setGraphic(pane);
+                }
             }
         });
     }
@@ -107,8 +122,14 @@ public class ListeCinemaController extends MenuController implements Initializab
     //methode pour ajouter un bouton permettant de supprimer un cinéma 
     private void btnSupp() {
         tcSupp.setCellFactory(col -> new TableCell<Cinema, Void>() {
-            private Button btn = new Button("Supprimer");
+            private Button btn = new Button("");
             {
+                final Image image = new Image(getClass().getResource("/cinema/images/delete_16x16.png").toExternalForm()); 
+                final ImageView icon = new ImageView(image); 
+                btn.setGraphic(icon);
+
+                           
+
                 btn.setOnAction(event -> {
                     Cinema cinema = getTableView().getItems().get(getIndex());
 
@@ -145,7 +166,13 @@ public class ListeCinemaController extends MenuController implements Initializab
             @Override
             protected void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
-                setGraphic(empty ? null : btn);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    StackPane pane = new StackPane(btn);
+                    pane.setAlignment(Pos.CENTER); // centre parfaitement
+                    setGraphic(pane);
+                }
             }
         });
     }
@@ -153,8 +180,11 @@ public class ListeCinemaController extends MenuController implements Initializab
     //methode qui redirige sur la liste des salles associées au cinéma selectionné
     private void btnVoirPlus(){
         tcVp.setCellFactory(col -> new TableCell<Cinema, Void>() {
-            private Button btn = new Button("Voir Les Salles");
+            private Button btn = new Button("");
             {
+                final Image image = new Image(getClass().getResource("/cinema/images/more_16x16.png").toExternalForm()); 
+                final ImageView icon = new ImageView(image); 
+                btn.setGraphic(icon);
                 btn.setOnAction(event -> {
                     Cinema cinema = getTableView().getItems().get(getIndex());
                     int idCinema = cinema.getIdCinema(); 
@@ -167,7 +197,13 @@ public class ListeCinemaController extends MenuController implements Initializab
             @Override
             protected void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
-                setGraphic(empty ? null : btn);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    StackPane pane = new StackPane(btn);
+                    pane.setAlignment(Pos.CENTER); // centre parfaitement
+                    setGraphic(pane);
+                }
             }
         });
     }

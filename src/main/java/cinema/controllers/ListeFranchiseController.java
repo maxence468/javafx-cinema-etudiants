@@ -29,6 +29,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.geometry.Pos;
+import javafx.scene.layout.StackPane;
 
 public class ListeFranchiseController extends MenuController implements Initializable {
     @FXML
@@ -105,8 +108,12 @@ public class ListeFranchiseController extends MenuController implements Initiali
     //methode pour ajouter un bouton permettant de modifier une franchise
     private void addButtonModifierToTable() {
         tcModifier.setCellFactory(column -> new TableCell<>() {
-            private final Button btn = new Button("Modifier");
+            private final Button btn = new Button("");
             {
+                final Image image = new Image(getClass().getResource("/cinema/images/edit_16x16.png").toExternalForm()); 
+                final ImageView icon = new ImageView(image); 
+                btn.setGraphic(icon);
+
                 btn.setOnAction(event -> {
                     Franchise franchise = getTableView().getItems().get(getIndex());
                     Navigation.goTo("/cinema/views/page_modif_franchise.fxml", "franchise", franchise, bRetour.getScene().getWindow());
@@ -116,15 +123,25 @@ public class ListeFranchiseController extends MenuController implements Initiali
             @Override
             protected void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
-                setGraphic(empty ? null : btn);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    StackPane pane = new StackPane(btn);
+                    pane.setAlignment(Pos.CENTER); // centre parfaitement
+                    setGraphic(pane);
+                }
             }
         });
     }
     //methode pour ajouter un bouton permettant de supprimer une franchise 
     private void addButtonSupprimerToTable() {
         tcSupprimer.setCellFactory(column -> new TableCell<>() {
-            private final Button btn = new Button("Supprimer");
+            private final Button btn = new Button("");
             {
+                final Image image = new Image(getClass().getResource("/cinema/images/delete_16x16.png").toExternalForm()); 
+                final ImageView icon = new ImageView(image); 
+                btn.setGraphic(icon);
+
                 btn.setOnAction(event -> {
                     Franchise franchise = getTableView().getItems().get(getIndex());
 
@@ -163,7 +180,13 @@ public class ListeFranchiseController extends MenuController implements Initiali
             @Override
             protected void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
-                setGraphic(empty ? null : btn);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    StackPane pane = new StackPane(btn);
+                    pane.setAlignment(Pos.CENTER); // centre parfaitement
+                    setGraphic(pane);
+                }
             }
         });
     }
