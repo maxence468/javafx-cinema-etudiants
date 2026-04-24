@@ -45,7 +45,7 @@ public class ModifierSalleController extends MenuController implements Initializ
     private int idSalle;
 
     @FXML
-    private Button bRetour, bEnregistrer;
+    private Button bRetour, bEnregistrer, bAjtCinema;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -108,6 +108,12 @@ public class ModifierSalleController extends MenuController implements Initializ
         else{
             afficherErreur();
         }
+    }
+
+    @FXML
+    public void bAjtCinemaClick(ActionEvent event){
+        Navigation.openPopUp("/cinema/views/page_ajout_cinema_popup.fxml");
+        lvCinema.setItems(getCinemaList());
     }
     
     //affiche un message d'erreur en rouge
