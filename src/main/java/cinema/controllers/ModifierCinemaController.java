@@ -36,7 +36,7 @@ public class ModifierCinemaController extends MenuController implements Initiali
     private int idCinema;
 
     @FXML
-    private Button bRetour, bEnregistrer;
+    private Button bRetour, bEnregistrer, bAjtFranchise;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -98,6 +98,12 @@ public class ModifierCinemaController extends MenuController implements Initiali
         else{
             afficherErreur();
         }
+    }
+
+    @FXML
+    public void bAjtFranchiseClick(ActionEvent event){
+        Navigation.openPopUp("/cinema/views/page_ajout_franchise_popup.fxml");
+        lvFranchise.setItems(getFranchiseList());
     }
 
     //affiche un message d'erreur en rouge

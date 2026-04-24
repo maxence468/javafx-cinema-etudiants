@@ -22,7 +22,7 @@
     maxWidth="-Infinity"
     minHeight="-Infinity"
     minWidth="-Infinity"
-    prefHeight="478.0"
+    prefHeight="530.0"
     prefWidth="729.0"
     xmlns="http://javafx.com/javafx/23.0.1"
     xmlns:fx="http://javafx.com/fxml/1"
@@ -200,7 +200,19 @@
         </HBox>
 
         <HBox alignment="CENTER"
-        layoutY="380.0"
+        layoutY="375.0"
+        prefWidth="729.0"
+        spacing="5.0">
+            <children>
+                <Button
+                fx:id="bAjtFranchise"
+                text="Ajouter une franchise"
+                onAction="#bAjtFranchiseClick" />
+            </children>
+        </HBox>
+
+        <HBox alignment="CENTER"
+        layoutY="410.0"
         prefWidth="729.0"
         spacing="5.0">
             <children>
@@ -211,7 +223,7 @@
 
         <HBox alignment="CENTER"
             layoutX="-1.0"
-            layoutY="375.0"
+            layoutY="430.0"
             prefHeight="100.0"
             prefWidth="729.0"
             spacing="20.0">
@@ -245,7 +257,7 @@
 
 
         <!-- Courbe verte en bas des boutons -->
-        <Pane layoutX="0.0" layoutY="440.0" prefHeight="30.0" prefWidth="729.0">
+        <Pane layoutX="0.0" layoutY="500.0" prefHeight="30.0" prefWidth="729.0">
             <children>
                 <QuadCurve controlX="7.666656494140625"
                     controlY="-35.99993896484375"
