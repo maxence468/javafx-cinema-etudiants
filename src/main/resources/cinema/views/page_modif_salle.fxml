@@ -289,4 +289,11 @@
             strokeWidth="0.0"
             width="508.0" />
     </children>
+
+    <ImageView layoutX="30.0" layoutY="390.0" fitHeight="80.0" fitWidth="80.0">
+        <image>
+            <Image url="@../images/cinema_logo.png" />
+        </image>
+    </ImageView>
+    
 </Pane>
