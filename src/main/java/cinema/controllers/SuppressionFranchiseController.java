@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.List;
+import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -34,17 +35,23 @@ public class SuppressionFranchiseController implements Initializable {
         this.tvFranchises = tvFranchises;
 
         String nomFranchise = franchise.getNomFranchise();
-        String message = "Voulez-vous vraiment supprimer la franchise "+ nomFranchise +" ? Cela supprimera egalement le(s) cinéma(s) :";
+        String message = "Voulez-vous vraiment supprimer la franchise "+ nomFranchise +" ? Cela supprimera également le(s) cinéma(s) :";
         tMessage.setText(message);
 
         CinemaDAO cinemaDAO = new CinemaDAO();
         List<Cinema> cinemas = cinemaDAO.findByIdFranchise(franchise.getIdFranchise());
-        StringBuilder listCinema = new StringBuilder();
+        
+        List<String> denominations = new ArrayList<>();
         for(Cinema c: cinemas){
-            listCinema.append(c.getDenomination()+ " - ");
+            denominations.add(c.getDenomination());
         }
+        String listCinema = String.join(", ", denominations) + " ainsi que toutes les salles de chaque cinéma.";
 
-        tCinemas.setText(listCinema.toString());
+        if(cinemas.isEmpty()){
+            tCinemas.setText("Aucun cinéma associé à cette franchise.");
+        }else{
+            tCinemas.setText(listCinema.toString());
+        }
     }
 
     @Override

@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.List;
+import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -41,10 +42,11 @@ public class SuppressionCinemaController implements Initializable {
 
         SalleDAO salleDAO = new SalleDAO();
         List<Salle> salles = salleDAO.findByIdCinema(cinema.getIdCinema());
-        StringBuilder listSalle = new StringBuilder();
+        List<String> numeroSalles = new ArrayList<>();
         for(Salle salle: salles){
-            listSalle.append(salle.getNumero()+ " - ");
+            numeroSalles.add(salle.getNumero()+"");
         }
+        String listSalle = String.join(", ", numeroSalles);
 
         tSalles.setText(listSalle.toString());
     }
