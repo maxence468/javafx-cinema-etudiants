@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import cinema.BO.Utilisateur;
 import cinema.DAO.UtilisateurDAO;
+import cinema.DAO.DBManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -49,7 +50,9 @@ public class ConnexionController implements Initializable {
         Utilisateur user = userDAO.authenticate(login, mdp);
         //verifie si l'utilisateur a été trouvé 
         if(user != null){
-            Navigation.setParam("idUser", user.getIdUtilisateur());
+            int idUser = user.getIdUtilisateur();
+            Navigation.setParam("idUser", idUser); // pour la page d'accueil 
+            DBManager.setUtilisateurSession(idUser); //pour les logs 
             showAccueil();
         }
         else{

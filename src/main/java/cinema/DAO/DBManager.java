@@ -3,6 +3,7 @@ package cinema.DAO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DBManager {
 
@@ -17,7 +18,7 @@ public class DBManager {
     public static Connection getInstance() {
         if (connect == null) {
             try {
-                Class.forName("org.postgresql.Driver");
+                Class.forName("org.postgresql.Driver"); 
                 connect = DriverManager.getConnection(url, user, pass);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -26,5 +27,14 @@ public class DBManager {
             }
         }
         return connect;
+    }
+
+    public static void setUtilisateurSession(int idUtilisateur) {
+        try {
+            Statement st = connect.createStatement();
+            st.execute("SET app.id_utilisateur = " + idUtilisateur);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -4,7 +4,8 @@ CREATE TABLE log(
     operation VARCHAR(50),
     dateAction TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     ancienContenu TEXT,
-    nouveauContenu TEXT
+    nouveauContenu TEXT,
+    utilisateur varchar(50)
 );
 
 CREATE
@@ -13,20 +14,40 @@ OR REPLACE FUNCTION insert_log_function(
     p_operation VARCHAR,
     p_ancienContenu TEXT,
     p_nouveauContenu TEXT
-) RETURNS void LANGUAGE plpgsql AS $$ BEGIN
+) RETURNS void LANGUAGE plpgsql AS $$ 
+DECLARE 
+	v_idUser INTEGER;
+	v_nom_prenom VARCHAR;
+BEGIN 
+	BEGIN 
+		v_idUser := current_setting('app.id_utilisateur', true)::INTEGER;
+	EXCEPTION WHEN OTHERS THEN 
+		v_idUser := NULL;
+	END;
+	
+	if v_idUser IS NOT NULL THEN 
+		SELECT nom || ' ' || prenom
+		INTO v_nom_prenom
+		from public.utilisateur
+		WHERE id_utilisateur = v_idUser;
+	END IF;
+	
+
 INSERT INTO
     log(
         tableName,
         operation,
         ancienContenu,
-        nouveauContenu
+        nouveauContenu,
+		utilisateur
     )
 VALUES
     (
         p_tableName,
         p_operation,
         p_ancienContenu,
-        p_nouveauContenu
+        p_nouveauContenu,
+		v_nom_prenom
     );
 
 END;
@@ -140,3 +161,10 @@ AFTER
     DELETE ON cinema FOR EACH ROW EXECUTE FUNCTION trigger_cinema_delete();
 
 select * from log l ;
+
+
+
+
+
+
+
