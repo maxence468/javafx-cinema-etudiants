@@ -47,8 +47,12 @@ public class SuppressionCinemaController implements Initializable {
             numeroSalles.add(salle.getNumero()+"");
         }
         String listSalle = String.join(", ", numeroSalles);
-
-        tSalles.setText(listSalle.toString());
+        
+        if(numeroSalles.isEmpty()){
+            tSalles.setText("Aucune salle associée à ce cinéma.");
+        }else{
+            tSalles.setText(listSalle.toString());
+        }
     }
 
     @Override
