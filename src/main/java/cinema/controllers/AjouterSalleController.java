@@ -2,6 +2,7 @@ package cinema.controllers;
 
 import java.net.URL;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import cinema.BO.Franchise;
@@ -80,6 +81,15 @@ public class AjouterSalleController extends MenuController implements Initializa
                 int idCinema = selected.getIdCinema();
                 Salle salle = new Salle(numero, description, nbPlace, idCinema);
                 SalleDAO salleDAO = new SalleDAO();
+
+                //Empeche la création si le numero de salle existe deja sur le cinéma selectionné
+                List<Salle> listeSalles = salleDAO.findAll();
+                for(Salle s: listeSalles){
+                    if((s.getIdCinema() == idCinema) && (s.getNumero() == numero)){
+                        afficherNumeroExistant();
+                        return;
+                    }
+                }
                 //si la création reussit la methode renvoie true 
                 boolean controle = salleDAO.create(salle);
                 if(controle){
@@ -115,6 +125,12 @@ public class AjouterSalleController extends MenuController implements Initializa
     //affiche un message d'erreur en rouge
     public void afficherErreur(){
         lbFeedback.setText("Tous les champs doivent être remplis");
+        lbFeedback.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;");
+    }
+
+    //affiche un message d'erreur en rouge
+    public void afficherNumeroExistant(){
+        lbFeedback.setText("Une salle avec ce numéro existe déjà pour ce cinéma");
         lbFeedback.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;");
     }
 
