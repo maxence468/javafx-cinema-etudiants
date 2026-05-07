@@ -23,7 +23,10 @@ application {
     mainClass = "cinema.app.MainApplication" // Classe principale
     mainModule = "cinema.app"
     // Arguments JVM par défaut pour JavaFX 23+ (voir section 3)
-    applicationDefaultJvmArgs = listOf("--enable-native-access=javafx.graphics,javafx.controls,javafx.fxml")
+    applicationDefaultJvmArgs = listOf(
+        "--enable-native-access=javafx.graphics,javafx.controls,javafx.fxml",
+        "--add-reads", "cinema.app=ALL-UNNAMED"
+    )
 }
 
 javafx {
@@ -80,4 +83,8 @@ configurations {
     implementation {
         isCanBeResolved = true
     }
+}
+
+tasks.named<JavaExec>("run") {
+    jvmArgs("--add-reads", "cinema.app=ALL-UNNAMED")
 }
