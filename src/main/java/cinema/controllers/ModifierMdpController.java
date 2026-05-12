@@ -23,7 +23,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.mindrot.jbcrypt.BCrypt;
+import cinema.utils.BCrypt;
 
 public class ModifierMdpController extends MenuController implements Initializable {
 

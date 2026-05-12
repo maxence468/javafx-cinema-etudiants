@@ -10,10 +10,23 @@ import cinema.controllers.Navigation;
 
 import java.io.IOException;
 
+import java.io.FileOutputStream;
+import java.io.PrintStream;
+
 public class MainApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        // Rediriger les erreurs vers un fichier log
+    try {
+        PrintStream ps = new PrintStream(new FileOutputStream("cineforall.log", true));
+        System.setErr(ps);
+        System.setOut(ps);
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+
         // On enregistre le stage principal dans Navigation
         Navigation.setPrimaryStage(primaryStage);
         //nom de la page de connexion

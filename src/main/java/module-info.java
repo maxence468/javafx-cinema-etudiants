@@ -2,7 +2,7 @@ module cinema.app {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
-    requires org.postgresql.jdbc;  // ← driver PostgreSQL
+    requires org.postgresql.jdbc;
 
     opens cinema.app to javafx.fxml;
     opens cinema.controllers to javafx.fxml;

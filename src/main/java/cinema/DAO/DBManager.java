@@ -7,11 +7,11 @@ import java.sql.Statement;
 
 public class DBManager {
 
-    private static String url = "jdbc:postgresql://localhost:5432/gestion_cinema";
+    private static String url = "jdbc:postgresql://172.16.102.20:5432/bdd_groupe8?sslmode=disable";
 
-    private static String user = "cinema_usr";
+    private static String user = "maxence";
 
-    private static String pass = "cinema_pwd";
+    private static String pass = "maxence";
 
     private static Connection connect;
 
